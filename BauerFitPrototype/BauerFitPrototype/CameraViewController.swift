@@ -49,6 +49,10 @@ class CameraViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("Deinit camera capture for \(captureMode)")
+    }
 }
 
 extension CameraViewController {
@@ -139,29 +143,31 @@ extension CameraViewController {
         
         cameraCaptureButton?.isEnabled = false
         
-        cameraController.captureImage {(image, error) in
-            guard let image = image else {
+        cameraController.captureImage {[weak self] (image, error) in
+            guard let image = image, let strongSelf = self else {
                 print(error ?? "Image capture error")
                 return
             }
             
-            switch self.captureMode {
+            switch strongSelf.captureMode {
             case .front:
-                self.captureProfile.frontPhoto = image
+                strongSelf.captureProfile.frontPhoto = image
                 
                 // Move to side mode
                 let cameraViewController = CameraViewController(captureMode: .side,
-                                                                captureProfile: self.captureProfile)
+                                                                captureProfile: strongSelf.captureProfile)
                 
-                self.navigationController?.pushViewController(cameraViewController, animated: true)
+                strongSelf.navigationController?.pushViewController(cameraViewController, animated: true)
             case .side:
-                self.captureProfile.sidePhoto = image
+                strongSelf.captureProfile.sidePhoto = image
                 
                 // Move to share screen
-                let shareViewController = ShareViewController(captureProfile: self.captureProfile)
+                let shareViewController = ShareViewController(captureProfile: strongSelf.captureProfile)
                 
-                self.navigationController?.pushViewController(shareViewController, animated: true)
+                strongSelf.navigationController?.pushViewController(shareViewController, animated: true)
             }
+            
+            strongSelf.cameraController.stopSession()
         }
     }
     

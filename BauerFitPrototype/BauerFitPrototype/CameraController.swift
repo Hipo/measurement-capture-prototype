@@ -188,6 +188,10 @@ extension CameraController {
         self.photoCaptureCompletionBlock = completion
     }
     
+    func stopSession() {
+        captureSession?.stopRunning()
+    }
+    
 }
 
 extension CameraController: AVCapturePhotoCaptureDelegate {

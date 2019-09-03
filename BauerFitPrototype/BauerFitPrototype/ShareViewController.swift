@@ -23,6 +23,10 @@ class ShareViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("Deinit share controller")
+    }
 }
 
 extension ShareViewController {
@@ -86,7 +90,7 @@ extension ShareViewController {
             shareButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             shareButton.topAnchor.constraint(equalTo: sidePhotoView.bottomAnchor, constant: buttonSize.height),
-            ])
+        ])
 
         shareButton.addTarget(self, action: #selector(shareResults(_:)), for: .touchUpInside)
 
@@ -107,7 +111,7 @@ extension ShareViewController {
             resetButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resetButton.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: buttonSize.height),
-            ])
+        ])
 
         resetButton.addTarget(self, action: #selector(resetCapture(_:)), for: .touchUpInside)
     }
@@ -117,7 +121,14 @@ extension ShareViewController {
     }
     
     @objc func shareResults(_ sender: UIButton) {
+        guard let frontPhoto = captureProfile.frontPhoto, let sidePhoto = captureProfile.sidePhoto else {
+            return
+        }
         
+        let ac = UIActivityViewController(activityItems: [frontPhoto, sidePhoto],
+                                          applicationActivities: nil)
+        
+        present(ac, animated: true)
     }
     
 }
