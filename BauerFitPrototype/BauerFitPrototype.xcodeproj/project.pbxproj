@@ -13,6 +13,9 @@
 		ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74E231EC89E00A43343 /* Assets.xcassets */; };
 		ECCAD752231EC89E00A43343 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD750231EC89E00A43343 /* LaunchScreen.storyboard */; };
 		ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD759231ECB3C00A43343 /* CameraViewController.swift */; };
+		ECCAD75C231ED28000A43343 /* CaptureProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD75B231ED28000A43343 /* CaptureProfile.swift */; };
+		ECCAD75E231ED43C00A43343 /* GenderSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */; };
+		ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD75F231EDA1000A43343 /* ShareViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		ECCAD751231EC89E00A43343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECCAD753231EC89E00A43343 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCAD759231ECB3C00A43343 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		ECCAD75B231ED28000A43343 /* CaptureProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureProfile.swift; sourceTree = "<group>"; };
+		ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectViewController.swift; sourceTree = "<group>"; };
+		ECCAD75F231EDA1000A43343 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,9 @@
 				ECCAD750231EC89E00A43343 /* LaunchScreen.storyboard */,
 				ECCAD753231EC89E00A43343 /* Info.plist */,
 				ECCAD759231ECB3C00A43343 /* CameraViewController.swift */,
+				ECCAD75B231ED28000A43343 /* CaptureProfile.swift */,
+				ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */,
+				ECCAD75F231EDA1000A43343 /* ShareViewController.swift */,
 			);
 			path = BauerFitPrototype;
 			sourceTree = "<group>";
@@ -138,9 +147,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
+				ECCAD75C231ED28000A43343 /* CaptureProfile.swift in Sources */,
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
+				ECCAD75E231ED43C00A43343 /* GenderSelectViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hipo.BauerFitPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -314,7 +326,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hipo.BauerFitPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
