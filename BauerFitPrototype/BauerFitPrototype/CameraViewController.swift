@@ -58,6 +58,39 @@ extension CameraViewController {
             
             try? self.cameraController.displayPreview(on: cameraPreviewView)
         }
+        
+        let silhouetteView = UIImageView(frame: .zero)
+        
+        silhouetteView.translatesAutoresizingMaskIntoConstraints = false
+        silhouetteView.isUserInteractionEnabled = false
+        silhouetteView.contentMode = .scaleAspectFit
+        
+        switch captureMode {
+        case .front:
+            switch captureProfile.gender {
+            case .female:
+                silhouetteView.image = UIImage(named: "woman-front")?.withRenderingMode(.alwaysTemplate)
+            case .male:
+                silhouetteView.image = UIImage(named: "man-front")?.withRenderingMode(.alwaysTemplate)
+            }
+        case .side:
+            switch captureProfile.gender {
+            case .female:
+                silhouetteView.image = UIImage(named: "woman-side")?.withRenderingMode(.alwaysTemplate)
+            case .male:
+                silhouetteView.image = UIImage(named: "man-side")?.withRenderingMode(.alwaysTemplate)
+            }
+        }
+        
+        silhouetteView.tintColor = .white
+        
+        view.addSubview(silhouetteView)
+        
+        NSLayoutConstraint.activate([
+            silhouetteView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50.0),
+            silhouetteView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50.0),
+            silhouetteView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
 
         let captureButtonSize: CGFloat = 66.0
         let captureButton = UIButton(frame: .zero)
