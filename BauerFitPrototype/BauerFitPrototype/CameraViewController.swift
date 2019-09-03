@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreMotion
 
 
 public enum CaptureMode {
@@ -21,6 +22,10 @@ class CameraViewController: UIViewController {
     var captureProfile: CaptureProfile
     let captureMode: CaptureMode
     
+    let motionManager = CMMotionManager()
+    
+    var cameraCaptureButton: UIButton?
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     init(captureMode: CaptureMode, captureProfile: CaptureProfile) {
@@ -28,6 +33,17 @@ class CameraViewController: UIViewController {
         self.captureProfile = captureProfile
         
         super.init(nibName: nil, bundle: nil)
+        
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.1
+            motionManager.startDeviceMotionUpdates(to: .main, withHandler: { [weak self] (data, error) in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                self?.updateInterfaceWithMotionData(motionData: data)
+            })
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,6 +113,8 @@ extension CameraViewController {
         
         captureButton.backgroundColor = .white
         captureButton.translatesAutoresizingMaskIntoConstraints = false
+        captureButton.isEnabled = false
+        captureButton.alpha = 0.5
         
         view.addSubview(captureButton)
         
@@ -112,9 +130,15 @@ extension CameraViewController {
         ])
         
         captureButton.addTarget(self, action: #selector(captureImage(_:)), for: .touchUpInside)
+        
+        cameraCaptureButton = captureButton
     }
     
     @objc func captureImage(_ sender: UIButton) {
+        motionManager.stopDeviceMotionUpdates()
+        
+        cameraCaptureButton?.isEnabled = false
+        
         cameraController.captureImage {(image, error) in
             guard let image = image else {
                 print(error ?? "Image capture error")
@@ -139,5 +163,17 @@ extension CameraViewController {
                 self.navigationController?.pushViewController(shareViewController, animated: true)
             }
         }
+    }
+    
+    func updateInterfaceWithMotionData(motionData: CMDeviceMotion) {
+        if !isViewLoaded {
+            return
+        }
+        
+        let enabled = (-motionData.gravity.y > 0.9 && -motionData.gravity.y < 1.1)
+            && (motionData.gravity.z > -0.1 && motionData.gravity.z < 0.1)
+        
+        cameraCaptureButton?.isEnabled = enabled
+        cameraCaptureButton?.alpha = enabled ? 1.0 : 0.5
     }
 }
