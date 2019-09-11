@@ -35,22 +35,28 @@ extension CameraController {
         }
         
         func configureCaptureDevices() throws {
-            
-            let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera],
+            let deviceTypes: [AVCaptureDevice.DeviceType] = [
+                .builtInDualCamera,
+                .builtInTrueDepthCamera,
+                .builtInTelephotoCamera,
+                .builtInWideAngleCamera
+            ]
+
+            let session = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes,
                                                            mediaType: AVMediaType.video,
                                                            position: .unspecified)
-            
+
             let cameras = session.devices.compactMap { $0 }
             guard !cameras.isEmpty else { throw CameraControllerError.noCamerasAvailable }
-            
+
             for camera in cameras {
                 if camera.position == .front {
                     self.frontCamera = camera
                 }
-                
+
                 if camera.position == .back {
                     self.rearCamera = camera
-                    
+
                     try camera.lockForConfiguration()
                     camera.focusMode = .continuousAutoFocus
                     camera.unlockForConfiguration()
