@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  ImageMeasurmentResult.swift
 //  BauerFitPrototype
 //
 //  Created by Eray on 12.09.2019.
@@ -8,6 +8,6 @@
 
 import Magpie
 
-class FitAPI: Magpie {
-    
+class ImageMeasurementResult: Model {
+
 }

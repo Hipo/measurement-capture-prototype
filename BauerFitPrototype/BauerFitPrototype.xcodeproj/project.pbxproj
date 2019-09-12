@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B89232A6EC300D09D6B /* ImageMeasurementDraft.swift */; };
+		2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */; };
+		2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A1C0B89232A6EC300D09D6B /* ImageMeasurementDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMeasurementDraft.swift; sourceTree = "<group>"; };
+		2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameter.swift; sourceTree = "<group>"; };
+		2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMeasurmentResult.swift; sourceTree = "<group>"; };
 		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
@@ -58,6 +64,91 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2A1C0B7F232A6D6600D09D6B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2AE9E0DF232A623500115986 /* FitAPI.swift */,
+				2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2A1C0B80232A6D8200D09D6B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD759231ECB3C00A43343 /* CameraViewController.swift */,
+				ECCAD749231EC89D00A43343 /* CameraController.swift */,
+				ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */,
+				ECCAD75F231EDA1000A43343 /* ShareViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2A1C0B81232A6D8B00D09D6B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2A1C0B82232A6D9200D09D6B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD75B231ED28000A43343 /* CaptureProfile.swift */,
+				2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2A1C0B83232A6DCF00D09D6B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD753231EC89E00A43343 /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		2A1C0B84232A6DE100D09D6B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD74E231EC89E00A43343 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2A1C0B85232A6E0000D09D6B /* IB */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD74B231EC89D00A43343 /* Main.storyboard */,
+				ECCAD750231EC89E00A43343 /* LaunchScreen.storyboard */,
+			);
+			path = IB;
+			sourceTree = "<group>";
+		};
+		2A1C0B86232A6E1400D09D6B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2A1C0B87232A6E1E00D09D6B /* Application */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2A1C0B87232A6E1E00D09D6B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				ECCAD747231EC89D00A43343 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		2A1C0B88232A6E7C00D09D6B /* Drafts */ = {
+			isa = PBXGroup;
+			children = (
+				2A1C0B89232A6EC300D09D6B /* ImageMeasurementDraft.swift */,
+			);
+			path = Drafts;
+			sourceTree = "<group>";
+		};
 		7364E0EB64CEA66251390A2A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,17 +179,15 @@
 		ECCAD746231EC89D00A43343 /* BauerFitPrototype */ = {
 			isa = PBXGroup;
 			children = (
-				ECCAD747231EC89D00A43343 /* AppDelegate.swift */,
-				ECCAD749231EC89D00A43343 /* CameraController.swift */,
-				ECCAD74B231EC89D00A43343 /* Main.storyboard */,
-				ECCAD74E231EC89E00A43343 /* Assets.xcassets */,
-				ECCAD750231EC89E00A43343 /* LaunchScreen.storyboard */,
-				ECCAD753231EC89E00A43343 /* Info.plist */,
-				ECCAD759231ECB3C00A43343 /* CameraViewController.swift */,
-				ECCAD75B231ED28000A43343 /* CaptureProfile.swift */,
-				ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */,
-				ECCAD75F231EDA1000A43343 /* ShareViewController.swift */,
-				2AE9E0DF232A623500115986 /* FitAPI.swift */,
+				2A1C0B80232A6D8200D09D6B /* Controllers */,
+				2A1C0B88232A6E7C00D09D6B /* Drafts */,
+				2A1C0B86232A6E1400D09D6B /* Core */,
+				2A1C0B85232A6E0000D09D6B /* IB */,
+				2A1C0B82232A6D9200D09D6B /* Models */,
+				2A1C0B7F232A6D6600D09D6B /* Networking */,
+				2A1C0B84232A6DE100D09D6B /* Resources */,
+				2A1C0B83232A6DCF00D09D6B /* Support */,
+				2A1C0B81232A6D8B00D09D6B /* Views */,
 			);
 			path = BauerFitPrototype;
 			sourceTree = "<group>";
@@ -218,11 +307,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */,
 				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
 				ECCAD75C231ED28000A43343 /* CaptureProfile.swift in Sources */,
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
+				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
+				2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */,
 				ECCAD75E231ED43C00A43343 /* GenderSelectViewController.swift in Sources */,
 				2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */,
 			);
@@ -375,7 +467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W9875NV3WF;
-				INFOPLIST_FILE = BauerFitPrototype/Info.plist;
+				INFOPLIST_FILE = BauerFitPrototype/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -395,7 +487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W9875NV3WF;
-				INFOPLIST_FILE = BauerFitPrototype/Info.plist;
+				INFOPLIST_FILE = BauerFitPrototype/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
