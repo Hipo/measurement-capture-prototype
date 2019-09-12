@@ -57,7 +57,7 @@ class UserInputViewController: UIViewController {
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
 
         ageField.addTarget(self, action: #selector(ageFieldDidEditValue), for: .editingChanged)
-        heightField.addTarget(self, action: #selector(ageFieldDidEditValue), for: .editingChanged)
+        heightField.addTarget(self, action: #selector(heightFieldDidEditValue), for: .editingChanged)
 
         ageField.delegate = self
         heightField.delegate = self
@@ -165,11 +165,15 @@ class UserInputViewController: UIViewController {
 
     @objc
     private func selectMaleGender(_ sender: UIButton) {
+        draft.gender = .male
+
         presentCameraCaptureController(withGender: .male)
     }
     
     @objc
     private func selectFemaleGender(_ sender: UIButton) {
+        draft.gender = .female
+
         presentCameraCaptureController(withGender: .female)
     }
 
