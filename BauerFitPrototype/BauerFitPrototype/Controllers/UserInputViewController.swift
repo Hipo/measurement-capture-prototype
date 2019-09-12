@@ -9,60 +9,79 @@
 import Foundation
 import UIKit
 
-
-class GenderSelectViewController: UIViewController {
+class UserInputViewController: UIViewController {
+    private lazy var maleGenderButton = UIButton(frame: .zero)
+    private lazy var femaleGenderButton = UIButton(frame: .zero)
+    private let genderButtonSize = CGSize(width: 132.0, height: 66.0)
     
     override func viewDidLoad() {
-        
-        let genderButtonSize = CGSize(width: 132.0, height: 66.0)
-        let maleGenderButton = UIButton(frame: .zero)
-        
+        configureAppearance()
+        prepareLayout()
+        linkInteractors()
+    }
+
+    private func configureAppearance() {
+        configureMaleGenderButtonAppearance()
+        configureFemaleGenderButtonAppearance()
+    }
+
+    private func prepareLayout() {
+        prepareMaleGenderButtonLayout()
+        prepareFemaleGenderButtonLayout()
+    }
+
+    private func linkInteractors() {
+        maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
+        femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
+    }
+
+    private func configureMaleGenderButtonAppearance() {
+        maleGenderButton.layer.borderColor = UIColor.black.cgColor
+        maleGenderButton.layer.borderWidth = 3
         maleGenderButton.backgroundColor = .white
         maleGenderButton.translatesAutoresizingMaskIntoConstraints = false
         maleGenderButton.setTitle("MALE", for: .normal)
         maleGenderButton.setTitleColor(.black, for: .normal)
-        
+    }
+
+    private func configureFemaleGenderButtonAppearance() {
+        femaleGenderButton.layer.borderColor = UIColor.black.cgColor
+        femaleGenderButton.layer.borderWidth = 3
+        femaleGenderButton.backgroundColor = .white
+        femaleGenderButton.translatesAutoresizingMaskIntoConstraints = false
+        femaleGenderButton.setTitle("FEMALE", for: .normal)
+        femaleGenderButton.setTitleColor(.black, for: .normal)
+    }
+
+    private func prepareMaleGenderButtonLayout() {
         view.addSubview(maleGenderButton)
-        
-        maleGenderButton.layer.borderColor = UIColor.black.cgColor
-        maleGenderButton.layer.borderWidth = 3
-        
+
         NSLayoutConstraint.activate([
             maleGenderButton.widthAnchor.constraint(equalToConstant: genderButtonSize.width),
             maleGenderButton.heightAnchor.constraint(equalToConstant: genderButtonSize.height),
             maleGenderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             maleGenderButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -genderButtonSize.height),
         ])
-        
-        maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
-        
-        let femaleGenderButton = UIButton(frame: .zero)
-        
-        femaleGenderButton.backgroundColor = .white
-        femaleGenderButton.translatesAutoresizingMaskIntoConstraints = false
-        femaleGenderButton.setTitle("FEMALE", for: .normal)
-        femaleGenderButton.setTitleColor(.black, for: .normal)
+    }
 
+    private func prepareFemaleGenderButtonLayout() {
         view.addSubview(femaleGenderButton)
-        
-        femaleGenderButton.layer.borderColor = UIColor.black.cgColor
-        femaleGenderButton.layer.borderWidth = 3
-        
+
         NSLayoutConstraint.activate([
             femaleGenderButton.widthAnchor.constraint(equalToConstant: genderButtonSize.width),
             femaleGenderButton.heightAnchor.constraint(equalToConstant: genderButtonSize.height),
             femaleGenderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             femaleGenderButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: genderButtonSize.height),
         ])
-        
-        femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
     }
     
-    @objc func selectMaleGender(_ sender: UIButton) {
+    @objc
+    private func selectMaleGender(_ sender: UIButton) {
         presentCameraCaptureController(withGender: .male)
     }
     
-    @objc func selectFemaleGender(_ sender: UIButton) {
+    @objc
+    private func selectFemaleGender(_ sender: UIButton) {
         presentCameraCaptureController(withGender: .female)
     }
     
@@ -72,5 +91,4 @@ class GenderSelectViewController: UIViewController {
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
-
 }
