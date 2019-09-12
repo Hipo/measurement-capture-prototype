@@ -22,7 +22,8 @@ class UserInputViewController: UIViewController {
 
     // MARK: - Properties
 
-    var testFieldCharacterLimit = 3
+    private var testFieldCharacterLimit = 3
+    private var draft = ImageMeasurementDraft()
 
     // MARK: - View lifecycle
 
@@ -55,8 +56,8 @@ class UserInputViewController: UIViewController {
         maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
 
-        ageField.addTarget(self, action: #selector(textFieldDidEditValue), for: .editingChanged)
-        heightField.addTarget(self, action: #selector(textFieldDidEditValue), for: .editingChanged)
+        ageField.addTarget(self, action: #selector(ageFieldDidEditValue), for: .editingChanged)
+        heightField.addTarget(self, action: #selector(ageFieldDidEditValue), for: .editingChanged)
 
         ageField.delegate = self
         heightField.delegate = self
@@ -145,8 +146,21 @@ class UserInputViewController: UIViewController {
     // MARK: - Actions
 
     @objc
-    private func textFieldDidEditValue() {
+    private func ageFieldDidEditValue() {
         validateForm()
+
+        if let age = ageField.text {
+            draft.age = Int(age)
+        }
+    }
+
+    @objc
+    private func heightFieldDidEditValue() {
+        validateForm()
+
+        if let height = heightField.text {
+            draft.height = Int(height)
+        }
     }
 
     @objc
@@ -162,8 +176,7 @@ class UserInputViewController: UIViewController {
     // MARK: - Navigation
     
     func presentCameraCaptureController(withGender gender: Gender) {
-        let captureProfile = CaptureProfile(gender: gender, frontPhoto: nil, sidePhoto: nil)
-        let cameraViewController = CameraViewController(captureMode: .front, captureProfile: captureProfile)
+        let cameraViewController = CameraViewController(captureMode: .front, draft: draft)
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }

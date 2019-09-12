@@ -19,7 +19,7 @@ public enum CaptureMode {
 class CameraViewController: UIViewController {
     
     let cameraController = CameraController()
-    var captureProfile: CaptureProfile
+    var draft: ImageMeasurementDraft
     let captureMode: CaptureMode
     
     let motionManager = CMMotionManager()
@@ -28,9 +28,9 @@ class CameraViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool { return true }
     
-    init(captureMode: CaptureMode, captureProfile: CaptureProfile) {
+    init(captureMode: CaptureMode, draft: ImageMeasurementDraft) {
         self.captureMode = captureMode
-        self.captureProfile = captureProfile
+        self.draft = draft
         
         super.init(nibName: nil, bundle: nil)
         
@@ -87,18 +87,22 @@ extension CameraViewController {
         
         switch captureMode {
         case .front:
-            switch captureProfile.gender {
-            case .female:
+            switch draft.gender {
+            case .female?:
                 silhouetteView.image = UIImage(named: "woman-front")?.withRenderingMode(.alwaysTemplate)
-            case .male:
+            case .male?:
                 silhouetteView.image = UIImage(named: "man-front")?.withRenderingMode(.alwaysTemplate)
+            case .none:
+                break
             }
         case .side:
-            switch captureProfile.gender {
-            case .female:
+            switch draft.gender {
+            case .female?:
                 silhouetteView.image = UIImage(named: "woman-side")?.withRenderingMode(.alwaysTemplate)
-            case .male:
+            case .male?:
                 silhouetteView.image = UIImage(named: "man-side")?.withRenderingMode(.alwaysTemplate)
+            case .none:
+                break
             }
         }
         
@@ -151,18 +155,17 @@ extension CameraViewController {
             
             switch strongSelf.captureMode {
             case .front:
-                strongSelf.captureProfile.frontPhoto = image
-                
+                strongSelf.draft.frontPhoto = image
+
                 // Move to side mode
-                let cameraViewController = CameraViewController(captureMode: .side,
-                                                                captureProfile: strongSelf.captureProfile)
+                let cameraViewController = CameraViewController(captureMode: .side, draft: strongSelf.draft)
                 
                 strongSelf.navigationController?.pushViewController(cameraViewController, animated: true)
             case .side:
-                strongSelf.captureProfile.sidePhoto = image
-                
+                strongSelf.draft.sidePhoto = image
+
                 // Move to share screen
-                let shareViewController = ShareViewController(captureProfile: strongSelf.captureProfile)
+                let shareViewController = ShareViewController(draft: strongSelf.draft)
                 
                 strongSelf.navigationController?.pushViewController(shareViewController, animated: true)
             }
