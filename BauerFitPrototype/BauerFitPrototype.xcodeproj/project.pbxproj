@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B47A6E873EB0437FC652BC7 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
+		C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.release.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.release.xcconfig"; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCAD747231EC89D00A43343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECCAD749231EC89D00A43343 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -30,6 +33,7 @@
 		ECCAD75B231ED28000A43343 /* CaptureProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureProfile.swift; sourceTree = "<group>"; };
 		ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectViewController.swift; sourceTree = "<group>"; };
 		ECCAD75F231EDA1000A43343 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +41,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B47A6E873EB0437FC652BC7 /* Pods_BauerFitPrototype.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0959FFD315AF2B4C4F1C9DFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7364E0EB64CEA66251390A2A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */,
+				C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		ECCAD73B231EC89D00A43343 = {
 			isa = PBXGroup;
 			children = (
 				ECCAD746231EC89D00A43343 /* BauerFitPrototype */,
 				ECCAD745231EC89D00A43343 /* Products */,
+				7364E0EB64CEA66251390A2A /* Pods */,
+				0959FFD315AF2B4C4F1C9DFE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,9 +108,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECCAD756231EC89E00A43343 /* Build configuration list for PBXNativeTarget "BauerFitPrototype" */;
 			buildPhases = (
+				C3269DF58D4447A0C4A2BE4E /* [CP] Check Pods Manifest.lock */,
 				ECCAD740231EC89D00A43343 /* Sources */,
 				ECCAD741231EC89D00A43343 /* Frameworks */,
 				ECCAD742231EC89D00A43343 /* Resources */,
+				82C8A595138D9521BCA556B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,6 +168,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82C8A595138D9521BCA556B7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3269DF58D4447A0C4A2BE4E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BauerFitPrototype-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ECCAD740231EC89D00A43343 /* Sources */ = {
@@ -296,6 +365,7 @@
 		};
 		ECCAD757231EC89E00A43343 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -314,6 +384,7 @@
 		};
 		ECCAD758231EC89E00A43343 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
