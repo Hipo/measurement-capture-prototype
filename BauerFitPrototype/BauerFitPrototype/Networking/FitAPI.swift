@@ -9,7 +9,17 @@
 import Magpie
 
 class FitAPI: Magpie {
-    required init(base: String, networking: Networking, networkMonitor: NetworkMonitor? = nil) {
+    
+    @available(*, unavailable)
+    required init(
+        base: String,
+        networking: Networking,
+        networkMonitor: NetworkMonitor? = nil
+        ) {
+        fatalError("init(base:networking:networkMonitor:) has not been implemented")
+    }
+
+    init() {
         let serverSchema = "http"
         let serverHost = "fitapi.hipolabs.com"
         let fitApiBase = "\(serverSchema)://\(serverHost)/api"

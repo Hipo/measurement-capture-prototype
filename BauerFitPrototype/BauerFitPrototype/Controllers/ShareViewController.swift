@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class ShareViewController: UIViewController {
-    
+    var fitAPI = FitAPI()
+    var loadingIndicatorOverlayView: UIView?
     var draft: ImageMeasurementDraft
     
     init(draft: ImageMeasurementDraft) {
@@ -91,7 +92,7 @@ extension ShareViewController {
             shareButton.topAnchor.constraint(equalTo: sidePhotoView.bottomAnchor, constant: buttonSize.height),
         ])
 
-        shareButton.addTarget(self, action: #selector(shareResults(_:)), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)
 
         let resetButton = UIButton(frame: .zero)
 
@@ -119,15 +120,20 @@ extension ShareViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc func shareResults(_ sender: UIButton) {
-        guard let frontPhoto = draft.frontPhoto, let sidePhoto = draft.sidePhoto else {
-            return
+    @objc func sendRequest() {
+        showLoadingIndicator()
+print(draft)
+        fitAPI.requestImageMeasurements(with: draft) { result in
+            self.hideLoadingIndicator()
+
+            switch result {
+            case let .success(result):
+                print(">>> \(result)")
+            case let .failure(error):
+                print(">>> \(error)")
+            }
         }
-        
-        let ac = UIActivityViewController(activityItems: [frontPhoto, sidePhoto],
-                                          applicationActivities: nil)
-        
-        present(ac, animated: true)
     }
-    
 }
+
+extension ShareViewController: LoadingIndicatorDisplayable { }

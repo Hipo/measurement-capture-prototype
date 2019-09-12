@@ -20,11 +20,11 @@ struct ImageMeasurementDraft: JSONBody {
     func decoded() -> [Pair]? {
         var pairs = [Pair]()
 
-        if let photo = frontPhoto {
-            pairs.append(Pair(key: .frontPhoto, value: photo.toBase64String))
+        if let frontPhoto = frontPhoto {
+            pairs.append(Pair(key: .frontPhoto, value: frontPhoto.toBase64String))
         }
-        if let photo = sidePhoto {
-            pairs.append(Pair(key: .frontPhoto, value: photo.toBase64String))
+        if let sidePhoto = sidePhoto {
+            pairs.append(Pair(key: .sidePhoto, value: sidePhoto.toBase64String))
         }
         if let age = age {
             pairs.append(Pair(key: .age, value: age))
@@ -37,5 +37,41 @@ struct ImageMeasurementDraft: JSONBody {
         }
 
         return pairs
+    }
+}
+
+extension ImageMeasurementDraft {
+    var descriptionString: String {
+        var description = ""
+
+        if frontPhoto != nil {
+            description.append("- A Front Photo -\n")
+        }
+        if sidePhoto != nil {
+            description.append("- A Side Photo -\n")
+        }
+        if let age = age {
+            description.append("- Age: \(age) -\n")
+        }
+        if let height = height {
+            description.append("- Height: \(height) -\n")
+        }
+        if let gender = gender {
+            description.append("- Gender: \(gender.rawValue) -")
+        }
+
+        return description
+    }
+}
+
+extension ImageMeasurementDraft: CustomStringConvertible {
+    var description: String {
+        return descriptionString
+    }
+}
+
+extension ImageMeasurementDraft: CustomDebugStringConvertible {
+    var debugDescription: String {
+        return descriptionString
     }
 }
