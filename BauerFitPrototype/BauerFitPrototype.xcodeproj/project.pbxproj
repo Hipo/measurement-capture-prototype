@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B47A6E873EB0437FC652BC7 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */; };
+		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
+		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
+		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.release.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.release.xcconfig"; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,7 +36,6 @@
 		ECCAD75B231ED28000A43343 /* CaptureProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureProfile.swift; sourceTree = "<group>"; };
 		ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectViewController.swift; sourceTree = "<group>"; };
 		ECCAD75F231EDA1000A43343 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B47A6E873EB0437FC652BC7 /* Pods_BauerFitPrototype.framework in Frameworks */,
+				D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +53,7 @@
 		0959FFD315AF2B4C4F1C9DFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EE65F80C354B02CB5BC067AD /* Pods_BauerFitPrototype.framework */,
+				2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -62,7 +64,6 @@
 				8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */,
 				C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -97,6 +98,7 @@
 				ECCAD75B231ED28000A43343 /* CaptureProfile.swift */,
 				ECCAD75D231ED43C00A43343 /* GenderSelectViewController.swift */,
 				ECCAD75F231EDA1000A43343 /* ShareViewController.swift */,
+				2AE9E0DF232A623500115986 /* FitAPI.swift */,
 			);
 			path = BauerFitPrototype;
 			sourceTree = "<group>";
@@ -112,7 +114,7 @@
 				ECCAD740231EC89D00A43343 /* Sources */,
 				ECCAD741231EC89D00A43343 /* Frameworks */,
 				ECCAD742231EC89D00A43343 /* Resources */,
-				82C8A595138D9521BCA556B7 /* [CP] Embed Pods Frameworks */,
+				428FF4D922E6681A410B5263 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,7 +172,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		82C8A595138D9521BCA556B7 /* [CP] Embed Pods Frameworks */ = {
+		428FF4D922E6681A410B5263 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -222,6 +224,7 @@
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
 				ECCAD75E231ED43C00A43343 /* GenderSelectViewController.swift in Sources */,
+				2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +308,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -359,6 +363,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -371,6 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W9875NV3WF;
 				INFOPLIST_FILE = BauerFitPrototype/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -390,6 +396,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W9875NV3WF;
 				INFOPLIST_FILE = BauerFitPrototype/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
