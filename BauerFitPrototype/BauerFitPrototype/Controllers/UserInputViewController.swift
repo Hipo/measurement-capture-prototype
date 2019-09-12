@@ -6,33 +6,63 @@
 //  Copyright © 2019 Hipo. All rights reserved.
 //
 
-import Foundation
+import SnapKit
 import UIKit
 
 class UserInputViewController: UIViewController {
+
+    // MARK: - Subviews
+
+    private lazy var ageField = UITextField(frame: CGRect.zero)
+    private lazy var heightField = UITextField(frame: CGRect.zero)
     private lazy var maleGenderButton = UIButton(frame: .zero)
     private lazy var femaleGenderButton = UIButton(frame: .zero)
-    private let genderButtonSize = CGSize(width: 132.0, height: 66.0)
-    
+    private let defaultInputSize = CGSize(width: 132.0, height: 66.0)
+    private let defaultVerticalOffset: CGFloat = 10.0
+
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         configureAppearance()
         prepareLayout()
         linkInteractors()
     }
 
+    // MARK: - Setup
+
     private func configureAppearance() {
+        configureAgeFieldAppearance()
+        configureHeightFieldAppearance()
         configureMaleGenderButtonAppearance()
         configureFemaleGenderButtonAppearance()
     }
 
     private func prepareLayout() {
-        prepareMaleGenderButtonLayout()
         prepareFemaleGenderButtonLayout()
+        prepareMaleGenderButtonLayout()
+        prepareHeightFieldLayout()
+        prepareAgeFieldLayout()
     }
 
     private func linkInteractors() {
         maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
+    }
+
+    // MARK: - Appearance
+
+    private func configureAgeFieldAppearance() {
+        ageField.layer.borderColor = UIColor.black.cgColor
+        ageField.layer.borderWidth = 3
+        ageField.textAlignment = .center
+        ageField.keyboardType = .numberPad
+    }
+
+    private func configureHeightFieldAppearance() {
+        heightField.layer.borderColor = UIColor.black.cgColor
+        heightField.layer.borderWidth = 3
+        heightField.textAlignment = .center
+        heightField.keyboardType = .numberPad
     }
 
     private func configureMaleGenderButtonAppearance() {
@@ -53,27 +83,49 @@ class UserInputViewController: UIViewController {
         femaleGenderButton.setTitleColor(.black, for: .normal)
     }
 
+    // MARK: - Layout
+
+    private func prepareAgeFieldLayout() {
+        view.addSubview(ageField)
+
+        ageField.snp.makeConstraints { make in
+            make.size.equalTo(defaultInputSize)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(heightField.snp.top).inset(-defaultVerticalOffset)
+        }
+    }
+
+    private func prepareHeightFieldLayout() {
+        view.addSubview(heightField)
+
+        heightField.snp.makeConstraints { make in
+            make.size.equalTo(defaultInputSize)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(maleGenderButton.snp.top).inset(-defaultVerticalOffset)
+        }
+    }
+
     private func prepareMaleGenderButtonLayout() {
         view.addSubview(maleGenderButton)
 
-        NSLayoutConstraint.activate([
-            maleGenderButton.widthAnchor.constraint(equalToConstant: genderButtonSize.width),
-            maleGenderButton.heightAnchor.constraint(equalToConstant: genderButtonSize.height),
-            maleGenderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            maleGenderButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -genderButtonSize.height),
-        ])
+        maleGenderButton.snp.makeConstraints { make in
+            make.size.equalTo(defaultInputSize)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(femaleGenderButton.snp.top).inset(-defaultVerticalOffset)
+        }
     }
 
     private func prepareFemaleGenderButtonLayout() {
         view.addSubview(femaleGenderButton)
 
-        NSLayoutConstraint.activate([
-            femaleGenderButton.widthAnchor.constraint(equalToConstant: genderButtonSize.width),
-            femaleGenderButton.heightAnchor.constraint(equalToConstant: genderButtonSize.height),
-            femaleGenderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            femaleGenderButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: genderButtonSize.height),
-        ])
+        femaleGenderButton.snp.makeConstraints { make in
+            make.size.equalTo(defaultInputSize)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.snp.centerY)
+        }
     }
+
+    // MARK: - Actions
     
     @objc
     private func selectMaleGender(_ sender: UIButton) {
@@ -84,6 +136,8 @@ class UserInputViewController: UIViewController {
     private func selectFemaleGender(_ sender: UIButton) {
         presentCameraCaptureController(withGender: .female)
     }
+
+    // MARK: - Navigation
     
     func presentCameraCaptureController(withGender gender: Gender) {
         let captureProfile = CaptureProfile(gender: gender, frontPhoto: nil, sidePhoto: nil)
