@@ -10,6 +10,9 @@
 		2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B89232A6EC300D09D6B /* ImageMeasurementDraft.swift */; };
 		2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */; };
 		2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */; };
+		2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */; };
+		2A1C0B93232A75A600D09D6B /* berk-front-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C0B92232A75A600D09D6B /* berk-front-2.png */; };
+		2A1C0B95232A75AC00D09D6B /* berk-side-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C0B94232A75AC00D09D6B /* berk-side-2.png */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
@@ -27,6 +30,9 @@
 		2A1C0B89232A6EC300D09D6B /* ImageMeasurementDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMeasurementDraft.swift; sourceTree = "<group>"; };
 		2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameter.swift; sourceTree = "<group>"; };
 		2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMeasurmentResult.swift; sourceTree = "<group>"; };
+		2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Base64String.swift"; sourceTree = "<group>"; };
+		2A1C0B92232A75A600D09D6B /* berk-front-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "berk-front-2.png"; sourceTree = "<group>"; };
+		2A1C0B94232A75AC00D09D6B /* berk-side-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "berk-side-2.png"; sourceTree = "<group>"; };
 		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				ECCAD74E231EC89E00A43343 /* Assets.xcassets */,
+				2A1C0B94232A75AC00D09D6B /* berk-side-2.png */,
+				2A1C0B92232A75A600D09D6B /* berk-front-2.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -149,6 +157,14 @@
 			path = Drafts;
 			sourceTree = "<group>";
 		};
+		2A1C0B8F232A736300D09D6B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7364E0EB64CEA66251390A2A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,8 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				2A1C0B80232A6D8200D09D6B /* Controllers */,
-				2A1C0B88232A6E7C00D09D6B /* Drafts */,
 				2A1C0B86232A6E1400D09D6B /* Core */,
+				2A1C0B88232A6E7C00D09D6B /* Drafts */,
+				2A1C0B8F232A736300D09D6B /* Extensions */,
 				2A1C0B85232A6E0000D09D6B /* IB */,
 				2A1C0B82232A6D9200D09D6B /* Models */,
 				2A1C0B7F232A6D6600D09D6B /* Networking */,
@@ -252,9 +269,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A1C0B93232A75A600D09D6B /* berk-front-2.png in Resources */,
 				ECCAD752231EC89E00A43343 /* LaunchScreen.storyboard in Resources */,
 				ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */,
 				ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */,
+				2A1C0B95232A75AC00D09D6B /* berk-side-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +330,7 @@
 				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
 				ECCAD75C231ED28000A43343 /* CaptureProfile.swift in Sources */,
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
+				2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
