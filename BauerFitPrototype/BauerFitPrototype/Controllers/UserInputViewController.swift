@@ -20,6 +20,10 @@ class UserInputViewController: UIViewController {
     private let defaultInputSize = CGSize(width: 132.0, height: 66.0)
     private let defaultVerticalOffset: CGFloat = 10.0
 
+    // MARK: - Properties
+
+    var testFieldCharacterLimit = 3
+
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -47,6 +51,9 @@ class UserInputViewController: UIViewController {
     private func linkInteractors() {
         maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
+
+        ageField.delegate = self
+        heightField.delegate = self
     }
 
     // MARK: - Appearance
@@ -145,4 +152,39 @@ class UserInputViewController: UIViewController {
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
+}
+
+extension UserInputViewController: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String) -> Bool {
+        if testFieldCharacterLimit == 0 {
+            return true
+        }
+
+        let currentText = textField.text ?? ""
+
+        guard let stringRange = Range(range, in: currentText) else { return false }
+
+        let resultText = currentText.replacingCharacters(in: stringRange, with: string)
+        return resultText.count <= testFieldCharacterLimit
+    }
+
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String) -> Bool {
+        if testFieldCharacterLimit == 0 {
+            return true
+        }
+
+        let currentText = textView.text ?? ""
+
+        guard let stringRange = Range(range, in: textView.text ?? "") else { return false }
+
+        let resultText = currentText.replacingCharacters(in: stringRange, with: text)
+        return resultText.count <= testFieldCharacterLimit
+    }
+
 }
