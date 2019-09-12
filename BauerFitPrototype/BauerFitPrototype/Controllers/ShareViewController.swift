@@ -9,13 +9,12 @@
 import Foundation
 import UIKit
 
-
 class ShareViewController: UIViewController {
     
-    var captureProfile: CaptureProfile
+    var draft: ImageMeasurementDraft
     
-    init(captureProfile: CaptureProfile) {
-        self.captureProfile = captureProfile
+    init(draft: ImageMeasurementDraft) {
+        self.draft = draft
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,7 +37,7 @@ extension ShareViewController {
         
         let frontPhotoView = UIImageView(frame: .zero)
         
-        frontPhotoView.image = captureProfile.frontPhoto
+        frontPhotoView.image = draft.frontPhoto
         frontPhotoView.contentMode = .scaleAspectFit
         frontPhotoView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,8 +54,8 @@ extension ShareViewController {
         ])
         
         let sidePhotoView = UIImageView(frame: .zero)
-        
-        sidePhotoView.image = captureProfile.sidePhoto
+
+        sidePhotoView.image = draft.sidePhoto
         sidePhotoView.contentMode = .scaleAspectFit
         sidePhotoView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -121,7 +120,7 @@ extension ShareViewController {
     }
     
     @objc func shareResults(_ sender: UIButton) {
-        guard let frontPhoto = captureProfile.frontPhoto, let sidePhoto = captureProfile.sidePhoto else {
+        guard let frontPhoto = draft.frontPhoto, let sidePhoto = draft.sidePhoto else {
             return
         }
         

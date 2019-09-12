@@ -13,8 +13,8 @@ import Magpie
 /// <note> The cases should be added conforming the alphabetical order.
 enum RequestParameter: String, JSONBodyRequestParameter {
     case age        = "age"
-    case frontImage = "front_image"
+    case frontPhoto = "front_image"
     case gender     = "gender"
     case height     = "height"
-    case sideImage  = "side_image"
+    case sidePhoto  = "side_image"
 }

@@ -10,14 +10,7 @@ import Foundation
 import UIKit
 
 
-public enum Gender {
-    case male
-    case female
-}
-
-struct CaptureProfile {
-    let gender: Gender
-    
-    var frontPhoto: UIImage?
-    var sidePhoto: UIImage?
+public enum Gender: String {
+    case male = "M"
+    case female = "F"
 }
