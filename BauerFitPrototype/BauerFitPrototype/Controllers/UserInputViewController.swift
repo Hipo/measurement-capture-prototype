@@ -30,6 +30,9 @@ class UserInputViewController: UIViewController {
         configureAppearance()
         prepareLayout()
         linkInteractors()
+
+        validateForm()
+        ageField.becomeFirstResponder()
     }
 
     // MARK: - Setup
@@ -52,6 +55,9 @@ class UserInputViewController: UIViewController {
         maleGenderButton.addTarget(self, action: #selector(selectMaleGender(_:)), for: .touchUpInside)
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
 
+        ageField.addTarget(self, action: #selector(textFieldDidEditValue), for: .editingChanged)
+        heightField.addTarget(self, action: #selector(textFieldDidEditValue), for: .editingChanged)
+
         ageField.delegate = self
         heightField.delegate = self
     }
@@ -63,6 +69,8 @@ class UserInputViewController: UIViewController {
         ageField.layer.borderWidth = 3
         ageField.textAlignment = .center
         ageField.keyboardType = .numberPad
+        ageField.autocorrectionType = .no
+        ageField.placeholder = "AGE"
     }
 
     private func configureHeightFieldAppearance() {
@@ -70,6 +78,8 @@ class UserInputViewController: UIViewController {
         heightField.layer.borderWidth = 3
         heightField.textAlignment = .center
         heightField.keyboardType = .numberPad
+        heightField.autocorrectionType = .no
+        heightField.placeholder = "HEIGHT"
     }
 
     private func configureMaleGenderButtonAppearance() {
@@ -133,7 +143,12 @@ class UserInputViewController: UIViewController {
     }
 
     // MARK: - Actions
-    
+
+    @objc
+    private func textFieldDidEditValue() {
+        validateForm()
+    }
+
     @objc
     private func selectMaleGender(_ sender: UIButton) {
         presentCameraCaptureController(withGender: .male)
@@ -154,6 +169,56 @@ class UserInputViewController: UIViewController {
     }
 }
 
+// MARK: - Validation
+
+extension UserInputViewController {
+    private var isFormValid: Bool {
+        return isAgeValid && isHeightValid
+    }
+
+    private var isAgeValid: Bool {
+        guard let text = ageField.text else { return false }
+        return !(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+    }
+
+    private var isHeightValid: Bool {
+        return !(heightField.text?.isEmpty ?? true)
+    }
+
+    private func validateForm() {
+        setHeightButton(enabled: isAgeValid)
+        setGenderButtons(enabled: isAgeValid && isHeightValid)
+    }
+}
+
+// MARK: - Enability
+
+extension UserInputViewController {
+    private func setHeightButton(enabled: Bool) {
+        let color = enabled
+            ? UIColor.black
+            : UIColor.lightGray.withAlphaComponent(0.5)
+
+        heightField.isEnabled = enabled
+        heightField.layer.borderColor = color.cgColor
+    }
+
+    private func setGenderButtons(enabled: Bool) {
+        let color = enabled
+            ? UIColor.black
+            : UIColor.lightGray.withAlphaComponent(0.5)
+
+        maleGenderButton.isEnabled = enabled
+        maleGenderButton.layer.borderColor = color.cgColor
+        maleGenderButton.setTitleColor(color, for: .normal)
+        femaleGenderButton.isEnabled = enabled
+        femaleGenderButton.layer.borderColor = color.cgColor
+        femaleGenderButton.setTitleColor(color, for: .normal)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
 extension UserInputViewController: UITextFieldDelegate {
     func textField(
         _ textField: UITextField,
@@ -164,27 +229,8 @@ extension UserInputViewController: UITextFieldDelegate {
         }
 
         let currentText = textField.text ?? ""
-
         guard let stringRange = Range(range, in: currentText) else { return false }
-
         let resultText = currentText.replacingCharacters(in: stringRange, with: string)
         return resultText.count <= testFieldCharacterLimit
     }
-
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String) -> Bool {
-        if testFieldCharacterLimit == 0 {
-            return true
-        }
-
-        let currentText = textView.text ?? ""
-
-        guard let stringRange = Range(range, in: textView.text ?? "") else { return false }
-
-        let resultText = currentText.replacingCharacters(in: stringRange, with: text)
-        return resultText.count <= testFieldCharacterLimit
-    }
-
 }
