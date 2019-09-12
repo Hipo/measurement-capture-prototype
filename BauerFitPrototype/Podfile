@@ -3,6 +3,7 @@ platform :ios, '12.4'
 target 'BauerFitPrototype' do
   use_frameworks!
 
-pod 'Magpie' , :git => 'https://github.com/Hipo/magpie.git', :branch => 'swift-5'
+  pod 'SnapKit'
+  pod 'Magpie' , :git => 'https://github.com/Hipo/magpie.git', :branch => 'swift-5'
 
 end
