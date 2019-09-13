@@ -20,20 +20,28 @@ class CameraViewController: UIViewController {
     
     let cameraController = CameraController()
     var draft: ImageMeasurementDraft
-    let captureMode: CaptureMode
+    var captureMode: CaptureMode = .front {
+        didSet {
+            updateForCaptureMode()
+        }
+    }
     
     let motionManager = CMMotionManager()
     
     var cameraCaptureButton: UIButton?
+    var silhouetteView: UIImageView?
     
     override var prefersStatusBarHidden: Bool { return true }
     
-    init(captureMode: CaptureMode, draft: ImageMeasurementDraft) {
-        self.captureMode = captureMode
+    init(draft: ImageMeasurementDraft) {
         self.draft = draft
         
         super.init(nibName: nil, bundle: nil)
         
+        startDeviceMotionUpdates()
+    }
+    
+    func startDeviceMotionUpdates() {
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 0.1
             motionManager.startDeviceMotionUpdates(to: .main, withHandler: { [weak self] (data, error) in
@@ -85,27 +93,6 @@ extension CameraViewController {
         silhouetteView.isUserInteractionEnabled = false
         silhouetteView.contentMode = .scaleAspectFit
         
-        switch captureMode {
-        case .front:
-            switch draft.gender {
-            case .female?:
-                silhouetteView.image = UIImage(named: "woman-front")?.withRenderingMode(.alwaysTemplate)
-            case .male?:
-                silhouetteView.image = UIImage(named: "man-front")?.withRenderingMode(.alwaysTemplate)
-            case .none:
-                break
-            }
-        case .side:
-            switch draft.gender {
-            case .female?:
-                silhouetteView.image = UIImage(named: "woman-side")?.withRenderingMode(.alwaysTemplate)
-            case .male?:
-                silhouetteView.image = UIImage(named: "man-side")?.withRenderingMode(.alwaysTemplate)
-            case .none:
-                break
-            }
-        }
-        
         silhouetteView.tintColor = .white
         
         view.addSubview(silhouetteView)
@@ -115,6 +102,10 @@ extension CameraViewController {
             silhouetteView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50.0),
             silhouetteView.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
+        
+        self.silhouetteView = silhouetteView
+        
+        updateForCaptureMode()
 
         let captureButtonSize: CGFloat = 66.0
         let captureButton = UIButton(frame: .zero)
@@ -142,12 +133,40 @@ extension CameraViewController {
         cameraCaptureButton = captureButton
     }
     
+    func updateForCaptureMode() {
+        guard let silhouetteView = self.silhouetteView else {
+            return
+        }
+        
+        switch captureMode {
+        case .front:
+            switch draft.gender {
+            case .female?:
+                silhouetteView.image = UIImage(named: "woman-front")?.withRenderingMode(.alwaysTemplate)
+            case .male?:
+                silhouetteView.image = UIImage(named: "man-front")?.withRenderingMode(.alwaysTemplate)
+            case .none:
+                break
+            }
+        case .side:
+            switch draft.gender {
+            case .female?:
+                silhouetteView.image = UIImage(named: "woman-side")?.withRenderingMode(.alwaysTemplate)
+            case .male?:
+                silhouetteView.image = UIImage(named: "man-side")?.withRenderingMode(.alwaysTemplate)
+            case .none:
+                break
+            }
+        }
+    }
+    
     @objc func captureImage(_ sender: UIButton) {
         motionManager.stopDeviceMotionUpdates()
-        
+
         cameraCaptureButton?.isEnabled = false
+        cameraCaptureButton?.alpha = 0.5
         
-        cameraController.captureImage {[weak self] (image, error) in
+        cameraController.captureImage {[weak self] (image, depthImage, error) in
             guard let image = image, let strongSelf = self else {
                 print(error ?? "Image capture error")
                 return
@@ -156,21 +175,22 @@ extension CameraViewController {
             switch strongSelf.captureMode {
             case .front:
                 strongSelf.draft.frontPhoto = image
-
-                // Move to side mode
-                let cameraViewController = CameraViewController(captureMode: .side, draft: strongSelf.draft)
+                strongSelf.draft.frontDepthPhoto = depthImage
                 
-                strongSelf.navigationController?.pushViewController(cameraViewController, animated: true)
+                strongSelf.captureMode = .side
+                strongSelf.startDeviceMotionUpdates()
             case .side:
                 strongSelf.draft.sidePhoto = image
+                strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
                 let shareViewController = ShareViewController(draft: strongSelf.draft)
                 
                 strongSelf.navigationController?.pushViewController(shareViewController, animated: true)
+                
+                strongSelf.cameraController.stopSession()
+                strongSelf.motionManager.stopDeviceMotionUpdates()
             }
-            
-            strongSelf.cameraController.stopSession()
         }
     }
     

@@ -27,6 +27,7 @@
 		2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
+		EC37677A232C1658000D6378 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.release.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.release.xcconfig"; sourceTree = "<group>"; };
+		EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCAD747231EC89D00A43343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECCAD749231EC89D00A43343 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */,
 				2A45F16B232BEBC000452DD5 /* UIViewController+Navigation.swift */,
 				2A45F175232BFB9F00452DD5 /* Notification+Keyboard.swift */,
+				EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
 				2A45F172232BFA1D00452DD5 /* KeyboardController.swift in Sources */,
 				2A45F160232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift in Sources */,
+				EC37677A232C1658000D6378 /* UIImage+CVPixelBuffer.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
 				2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */,
 				2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */,

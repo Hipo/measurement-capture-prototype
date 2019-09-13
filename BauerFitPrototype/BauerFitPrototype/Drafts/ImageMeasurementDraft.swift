@@ -13,6 +13,8 @@ struct ImageMeasurementDraft: JSONBody {
 
     var frontPhoto: UIImage?
     var sidePhoto: UIImage?
+    var frontDepthPhoto: UIImage?
+    var sideDepthPhoto: UIImage?
     var age: Int?
     var weight: Int?
     var height: Int?

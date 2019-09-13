@@ -218,7 +218,7 @@ class UserInputViewController: BaseScrollViewController {
     // MARK: - Navigation
     
     func presentCameraCaptureController(withGender gender: Gender) {
-        let cameraViewController = CameraViewController(captureMode: .front, draft: draft)
+        let cameraViewController = CameraViewController(draft: draft)
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }

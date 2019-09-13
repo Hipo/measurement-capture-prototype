@@ -99,7 +99,28 @@ extension ShareViewController {
             shareButton.topAnchor.constraint(equalTo: sidePhotoView.bottomAnchor, constant: buttonSize.height),
         ])
 
-        shareButton.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(shareResults(_:)), for: .touchUpInside)
+        
+        let measureButton = UIButton(frame: .zero)
+        
+        measureButton.backgroundColor = .white
+        measureButton.translatesAutoresizingMaskIntoConstraints = false
+        measureButton.setTitle("CALCULATE", for: .normal)
+        measureButton.setTitleColor(.black, for: .normal)
+        
+        view.addSubview(measureButton)
+        
+        measureButton.layer.borderColor = UIColor.black.cgColor
+        measureButton.layer.borderWidth = 3
+        
+        NSLayoutConstraint.activate([
+            measureButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
+            measureButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
+            measureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            measureButton.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: buttonSize.height / 2),
+        ])
+        
+        measureButton.addTarget(self, action: #selector(calculateMeasurements(_:)), for: .touchUpInside)
 
         let resetButton = UIButton(frame: .zero)
 
@@ -117,13 +138,13 @@ extension ShareViewController {
             resetButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
             resetButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resetButton.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: buttonSize.height),
+            resetButton.topAnchor.constraint(equalTo: measureButton.bottomAnchor, constant: buttonSize.height / 2),
         ])
 
         resetButton.addTarget(self, action: #selector(popToRootViewController), for: .touchUpInside)
     }
 
-    @objc func sendRequest() {
+    @objc func calculateMeasurements(_ sender: UIButton) {
         #if DEBUG
             draft.frontPhoto = img("sample-front.png")
             draft.sidePhoto = img("sample-side.png")
@@ -141,6 +162,27 @@ extension ShareViewController {
                 self.show(error) // TODO: Error handling
             }
         }
+    }
+    
+    @objc func shareResults(_ sender: UIButton) {
+        guard let frontPhoto = draft.frontPhoto, let sidePhoto = draft.sidePhoto else {
+            return
+        }
+        
+        var activityItems = [frontPhoto, sidePhoto]
+        
+        if let frontDepthPhoto = draft.frontDepthPhoto {
+            activityItems.append(frontDepthPhoto)
+        }
+        
+        if let sideDepthPhoto = draft.sideDepthPhoto {
+            activityItems.append(sideDepthPhoto)
+        }
+
+        let ac = UIActivityViewController(activityItems: activityItems,
+                                          applicationActivities: nil)
+        
+        present(ac, animated: true)
     }
 
     private func show(_ error: Error) {

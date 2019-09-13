@@ -63,6 +63,7 @@ class MeasurementResultsViewController: UIViewController {
         flowLayout.itemSize = CGSize(width: view.bounds.width, height: 50.0)
         listView.backgroundColor = UIColor.white
         listView.contentInset.bottom = defaultButtonSize.height + 2 * defaultVerticalInset
+        listView.alwaysBounceVertical = true
     }
 
     private func configureResetButtonAppearance() {
@@ -151,7 +152,7 @@ extension MeasurementResultsViewController {
         if let value = result.value as? String {
             cell.subTitle = value
         } else if let value = result.value as? Int {
-            cell.subTitle = String(value)
+            cell.subTitle = "\(value) cm"
         }
     }
 }
