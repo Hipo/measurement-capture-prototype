@@ -9,11 +9,12 @@
 import SnapKit
 import UIKit
 
-class UserInputViewController: UIViewController {
+class UserInputViewController: BaseScrollViewController {
 
     // MARK: - Subviews
 
     private lazy var ageField = UITextField(frame: CGRect.zero)
+    private lazy var weightField = UITextField(frame: CGRect.zero)
     private lazy var heightField = UITextField(frame: CGRect.zero)
     private lazy var maleGenderButton = UIButton(frame: .zero)
     private lazy var femaleGenderButton = UIButton(frame: .zero)
@@ -28,28 +29,35 @@ class UserInputViewController: UIViewController {
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         configureAppearance()
         prepareLayout()
         linkInteractors()
 
         validateForm()
         ageField.becomeFirstResponder()
+        view.layoutIfNeeded()
     }
 
     // MARK: - Setup
 
     private func configureAppearance() {
         configureAgeFieldAppearance()
+        configureWeightFieldAppearance()
         configureHeightFieldAppearance()
         configureMaleGenderButtonAppearance()
         configureFemaleGenderButtonAppearance()
     }
 
-    private func prepareLayout() {
-        prepareFemaleGenderButtonLayout()
-        prepareMaleGenderButtonLayout()
-        prepareHeightFieldLayout()
+    override func prepareLayout() {
+        super.prepareLayout()
+
         prepareAgeFieldLayout()
+        prepareWeightFieldLayout()
+        prepareHeightFieldLayout()
+        prepareMaleGenderButtonLayout()
+        prepareFemaleGenderButtonLayout()
     }
 
     private func linkInteractors() {
@@ -57,6 +65,7 @@ class UserInputViewController: UIViewController {
         femaleGenderButton.addTarget(self, action: #selector(selectFemaleGender(_:)), for: .touchUpInside)
 
         ageField.addTarget(self, action: #selector(ageFieldDidEditValue), for: .editingChanged)
+        weightField.addTarget(self, action: #selector(weightFieldDidEditValue), for: .editingChanged)
         heightField.addTarget(self, action: #selector(heightFieldDidEditValue), for: .editingChanged)
 
         ageField.delegate = self
@@ -72,6 +81,15 @@ class UserInputViewController: UIViewController {
         ageField.keyboardType = .numberPad
         ageField.autocorrectionType = .no
         ageField.placeholder = "AGE"
+    }
+
+    private func configureWeightFieldAppearance() {
+        weightField.layer.borderColor = UIColor.black.cgColor
+        weightField.layer.borderWidth = 3
+        weightField.textAlignment = .center
+        weightField.keyboardType = .numberPad
+        weightField.autocorrectionType = .no
+        weightField.placeholder = "WEIGHT (lbs)"
     }
 
     private func configureHeightFieldAppearance() {
@@ -104,42 +122,53 @@ class UserInputViewController: UIViewController {
     // MARK: - Layout
 
     private func prepareAgeFieldLayout() {
-        view.addSubview(ageField)
+        contentView.addSubview(ageField)
 
         ageField.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(3 * defaultVerticalOffset)
             make.size.equalTo(defaultInputSize)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(heightField.snp.top).inset(-defaultVerticalOffset)
+        }
+    }
+
+    private func prepareWeightFieldLayout() {
+        contentView.addSubview(weightField)
+
+        weightField.snp.makeConstraints { make in
+            make.top.equalTo(ageField.snp.bottom).offset(defaultVerticalOffset)
+            make.size.equalTo(defaultInputSize)
+            make.centerX.equalToSuperview()
         }
     }
 
     private func prepareHeightFieldLayout() {
-        view.addSubview(heightField)
+        contentView.addSubview(heightField)
 
         heightField.snp.makeConstraints { make in
+            make.top.equalTo(weightField.snp.bottom).offset(defaultVerticalOffset)
             make.size.equalTo(defaultInputSize)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(maleGenderButton.snp.top).inset(-defaultVerticalOffset)
         }
     }
 
     private func prepareMaleGenderButtonLayout() {
-        view.addSubview(maleGenderButton)
+        contentView.addSubview(maleGenderButton)
 
         maleGenderButton.snp.makeConstraints { make in
+            make.top.equalTo(heightField.snp.bottom).offset(defaultVerticalOffset)
             make.size.equalTo(defaultInputSize)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(femaleGenderButton.snp.top).inset(-defaultVerticalOffset)
         }
     }
 
     private func prepareFemaleGenderButtonLayout() {
-        view.addSubview(femaleGenderButton)
+        contentView.addSubview(femaleGenderButton)
 
         femaleGenderButton.snp.makeConstraints { make in
+            make.top.equalTo(maleGenderButton.snp.bottom).offset(defaultVerticalOffset)
             make.size.equalTo(defaultInputSize)
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.snp.centerY)
+            make.bottom.equalToSuperview()
         }
     }
 
@@ -151,6 +180,15 @@ class UserInputViewController: UIViewController {
 
         if let age = ageField.text {
             draft.age = Int(age)
+        }
+    }
+
+    @objc
+    private func weightFieldDidEditValue() {
+        validateForm()
+
+        if let weight = weightField.text {
+            draft.weight = Int(weight)
         }
     }
 
@@ -184,13 +222,19 @@ class UserInputViewController: UIViewController {
         
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
+
+    // MARK: - Keyboard
+
+    override func firstResponder(for keyboardController: KeyboardController) -> UIView? {
+        return femaleGenderButton
+    }
 }
 
 // MARK: - Validation
 
 extension UserInputViewController {
     private var isFormValid: Bool {
-        return isAgeValid && isHeightValid
+        return isAgeValid && isWeightValid && isHeightValid
     }
 
     private var isAgeValid: Bool {
@@ -198,25 +242,41 @@ extension UserInputViewController {
         return !(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
     }
 
+    private var isWeightValid: Bool {
+        return !(weightField.text?.isEmpty ?? true)
+    }
+
     private var isHeightValid: Bool {
         return !(heightField.text?.isEmpty ?? true)
     }
 
     private func validateForm() {
-        setHeightButton(enabled: isAgeValid)
-        setGenderButtons(enabled: isAgeValid && isHeightValid)
+        setWeightButton(enabled: isAgeValid)
+        setHeightButton(enabled: isAgeValid && isWeightValid)
+        setGenderButtons(enabled: isAgeValid && isWeightValid && isHeightValid)
     }
 }
 
 // MARK: - Enability
 
 extension UserInputViewController {
+    private func setWeightButton(enabled: Bool) {
+        let color = enabled
+            ? UIColor.black
+            : UIColor.lightGray.withAlphaComponent(0.5)
+
+        weightField.isEnabled = enabled
+        weightField.textColor = color
+        weightField.layer.borderColor = color.cgColor
+    }
+
     private func setHeightButton(enabled: Bool) {
         let color = enabled
             ? UIColor.black
             : UIColor.lightGray.withAlphaComponent(0.5)
 
         heightField.isEnabled = enabled
+        heightField.textColor = color
         heightField.layer.borderColor = color.cgColor
     }
 
