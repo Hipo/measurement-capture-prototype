@@ -67,3 +67,49 @@ extension ImageMeasurementResult.Measurements {
         case waistWidth = "waist_width"
     }
 }
+
+// MARK: - API
+
+extension ImageMeasurementResult.Measurements {
+    struct Result {
+        let name: String
+        let value: Any
+    }
+
+    var list: [Result] {
+        var array = [Result]()
+
+        if let chestCircumference = chestCircumference {
+            array.append(Result(name: "Chest Circumference", value: chestCircumference))
+        }
+        if let chestDepth = chestDepth {
+            array.append(Result(name: "Chest Depth", value: chestDepth))
+        }
+        if let chestWidth = chestWidth {
+            array.append(Result(name: "Chest Width", value: chestWidth))
+        }
+        if let hipsCircumference = hipsCircumference {
+            array.append(Result(name: "Hips Circumference", value: hipsCircumference))
+        }
+        if let hipsDepth = hipsDepth {
+            array.append(Result(name: "Hips Depth", value: hipsDepth))
+        }
+        if let hipsWidth = hipsWidth {
+            array.append(Result(name: "Hips Width", value: hipsWidth))
+        }
+        if let shoulderWidth = shoulderWidth {
+            array.append(Result(name: "Shoulder Width", value: shoulderWidth))
+        }
+        if let waistCircumference = waistCircumference {
+            array.append(Result(name: "Waist Circumference", value: waistCircumference))
+        }
+        if let waistDepth = waistDepth {
+            array.append(Result(name: "Waist Depth", value: waistDepth))
+        }
+        if let waistWidth = waistWidth {
+            array.append(Result(name: "Waist Width", value: waistWidth))
+        }
+
+        return array
+    }
+}

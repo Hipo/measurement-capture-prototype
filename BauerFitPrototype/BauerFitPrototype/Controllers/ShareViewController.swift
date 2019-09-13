@@ -28,6 +28,12 @@ class ShareViewController: UIViewController {
     deinit {
         print("Deinit share controller")
     }
+
+    private func openResultsScreen(with result: ImageMeasurementResult) {
+        let controller = MeasurementResultsViewController(result: result)
+
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 extension ShareViewController {
@@ -134,11 +140,21 @@ extension ShareViewController {
 
             switch result {
             case let .success(result):
-                print(">>> \(result)")
+                self.openResultsScreen(with: result)
             case let .failure(error):
-                print(">>> \(error)")
+                self.show(error) // TODO: Error handling
             }
         }
+    }
+
+    private func show(_ error: Error) {
+        let title = "Network Error"
+        let message = error.localizedDescription
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
     }
 }
 
