@@ -21,10 +21,10 @@ struct ImageMeasurementDraft: JSONBody {
         var pairs = [Pair]()
 
         if let frontPhoto = frontPhoto {
-            pairs.append(Pair(key: .frontPhoto, value: frontPhoto.toBase64String))
+            pairs.append(Pair(key: .frontPhoto, value: frontPhoto.base64String(withHeight: 800)))
         }
         if let sidePhoto = sidePhoto {
-            pairs.append(Pair(key: .sidePhoto, value: sidePhoto.toBase64String))
+            pairs.append(Pair(key: .sidePhoto, value: sidePhoto.base64String(withHeight: 800)))
         }
         if let age = age {
             pairs.append(Pair(key: .age, value: age))
