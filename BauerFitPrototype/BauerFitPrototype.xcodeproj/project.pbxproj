@@ -11,8 +11,9 @@
 		2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */; };
 		2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */; };
 		2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */; };
-		2A1C0B93232A75A600D09D6B /* berk-front-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C0B92232A75A600D09D6B /* berk-front-2.png */; };
-		2A1C0B95232A75AC00D09D6B /* berk-side-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C0B94232A75AC00D09D6B /* berk-side-2.png */; };
+		2A45F154232B9EA600452DD5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F153232B9EA600452DD5 /* Utils.swift */; };
+		2A45F15A232BAD2700452DD5 /* sample-front.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A45F159232BAD2700452DD5 /* sample-front.png */; };
+		2A45F15C232BAD2E00452DD5 /* sample-side.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A45F15B232BAD2D00452DD5 /* sample-side.png */; };
 		2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
@@ -32,8 +33,9 @@
 		2A1C0B8B232A6F3600D09D6B /* RequestParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameter.swift; sourceTree = "<group>"; };
 		2A1C0B8D232A707A00D09D6B /* ImageMeasurmentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMeasurmentResult.swift; sourceTree = "<group>"; };
 		2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Base64String.swift"; sourceTree = "<group>"; };
-		2A1C0B92232A75A600D09D6B /* berk-front-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "berk-front-2.png"; sourceTree = "<group>"; };
-		2A1C0B94232A75AC00D09D6B /* berk-side-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "berk-side-2.png"; sourceTree = "<group>"; };
+		2A45F153232B9EA600452DD5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		2A45F159232BAD2700452DD5 /* sample-front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sample-front.png"; sourceTree = "<group>"; };
+		2A45F15B232BAD2D00452DD5 /* sample-side.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sample-side.png"; sourceTree = "<group>"; };
 		2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorDisplayable.swift; sourceTree = "<group>"; };
 		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,9 +121,9 @@
 		2A1C0B84232A6DE100D09D6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F159232BAD2700452DD5 /* sample-front.png */,
+				2A45F15B232BAD2D00452DD5 /* sample-side.png */,
 				ECCAD74E231EC89E00A43343 /* Assets.xcassets */,
-				2A1C0B94232A75AC00D09D6B /* berk-side-2.png */,
-				2A1C0B92232A75A600D09D6B /* berk-front-2.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -138,6 +140,7 @@
 		2A1C0B86232A6E1400D09D6B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F152232B9E9200452DD5 /* Env */,
 				2A1C0B87232A6E1E00D09D6B /* Application */,
 			);
 			path = Core;
@@ -165,6 +168,14 @@
 				2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2A45F152232B9E9200452DD5 /* Env */ = {
+			isa = PBXGroup;
+			children = (
+				2A45F153232B9EA600452DD5 /* Utils.swift */,
+			);
+			path = Env;
 			sourceTree = "<group>";
 		};
 		2AA929D6232AC6EB00ACEE0C /* Protocols */ = {
@@ -280,11 +291,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A1C0B93232A75A600D09D6B /* berk-front-2.png in Resources */,
+				2A45F15C232BAD2E00452DD5 /* sample-side.png in Resources */,
 				ECCAD752231EC89E00A43343 /* LaunchScreen.storyboard in Resources */,
+				2A45F15A232BAD2700452DD5 /* sample-front.png in Resources */,
 				ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */,
 				ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */,
-				2A1C0B95232A75AC00D09D6B /* berk-side-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +353,7 @@
 				ECCAD75C231ED28000A43343 /* Gender.swift in Sources */,
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
 				2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */,
+				2A45F154232B9EA600452DD5 /* Utils.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,

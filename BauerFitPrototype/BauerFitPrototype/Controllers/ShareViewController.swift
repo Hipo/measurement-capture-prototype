@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Kingfisher
 import UIKit
 
 class ShareViewController: UIViewController {
@@ -121,8 +122,13 @@ extension ShareViewController {
     }
     
     @objc func sendRequest() {
+        #if DEBUG
+            draft.frontPhoto = img("sample-front.png")
+            draft.sidePhoto = img("sample-side.png")
+        #endif
+
         showLoadingIndicator()
-print(draft)
+        
         fitAPI.requestImageMeasurements(with: draft) { result in
             self.hideLoadingIndicator()
 
