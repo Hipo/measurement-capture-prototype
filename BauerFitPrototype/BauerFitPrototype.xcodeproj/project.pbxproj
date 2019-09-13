@@ -18,6 +18,8 @@
 		2A45F160232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F15F232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift */; };
 		2A45F162232BBA0300452DD5 /* ImageMeasurmentResult+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F161232BBA0300452DD5 /* ImageMeasurmentResult+Debug.swift */; };
 		2A45F164232BBA0500452DD5 /* ImageMeasurmentResult+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F163232BBA0400452DD5 /* ImageMeasurmentResult+Request.swift */; };
+		2A45F168232BD21700452DD5 /* MeasurementResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F167232BD21700452DD5 /* MeasurementResultCell.swift */; };
+		2A45F16A232BD76400452DD5 /* sample-result.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A45F169232BD76400452DD5 /* sample-result.json */; };
 		2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
@@ -44,6 +46,8 @@
 		2A45F15F232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageMeasurmentResult+Measurement.swift"; sourceTree = "<group>"; };
 		2A45F161232BBA0300452DD5 /* ImageMeasurmentResult+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageMeasurmentResult+Debug.swift"; sourceTree = "<group>"; };
 		2A45F163232BBA0400452DD5 /* ImageMeasurmentResult+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageMeasurmentResult+Request.swift"; sourceTree = "<group>"; };
+		2A45F167232BD21700452DD5 /* MeasurementResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementResultCell.swift; sourceTree = "<group>"; };
+		2A45F169232BD76400452DD5 /* sample-result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample-result.json"; sourceTree = "<group>"; };
 		2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorDisplayable.swift; sourceTree = "<group>"; };
 		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +110,7 @@
 		2A1C0B81232A6D8B00D09D6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F167232BD21700452DD5 /* MeasurementResultCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 		2A1C0B84232A6DE100D09D6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F169232BD76400452DD5 /* sample-result.json */,
 				2A45F159232BAD2700452DD5 /* sample-front.png */,
 				2A45F15B232BAD2D00452DD5 /* sample-side.png */,
 				ECCAD74E231EC89E00A43343 /* Assets.xcassets */,
@@ -305,6 +311,7 @@
 			files = (
 				2A45F15C232BAD2E00452DD5 /* sample-side.png in Resources */,
 				ECCAD752231EC89E00A43343 /* LaunchScreen.storyboard in Resources */,
+				2A45F16A232BD76400452DD5 /* sample-result.json in Resources */,
 				2A45F15A232BAD2700452DD5 /* sample-front.png in Resources */,
 				ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */,
 				ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */,
@@ -361,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */,
+				2A45F168232BD21700452DD5 /* MeasurementResultCell.swift in Sources */,
 				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
 				2A45F15E232BB0D200452DD5 /* MeasurementResultsViewController.swift in Sources */,
 				ECCAD75C231ED28000A43343 /* Gender.swift in Sources */,

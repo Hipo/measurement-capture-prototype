@@ -11,14 +11,14 @@ import Magpie
 class ImageMeasurementResult: Model {
     let debug: Debug?
     let request: FitRequest?
-    let measurements: Measurements?
+    let measurements: Measurements
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         debug = try container.decodeIfPresent(Debug.self, forKey: .debug)
         request = try container.decodeIfPresent(FitRequest.self, forKey: .request)
-        measurements = try container.decodeIfPresent(Measurements.self, forKey: .measurements)
+        measurements = try container.decode(Measurements.self, forKey: .measurements)
     }
 
     func encode(to encoder: Encoder) throws {

@@ -1,0 +1,30 @@
+{
+    "fit_request": {
+        "id": 26,
+        "front_image": "/media/uploads/2019/09/13/597f6855-3e35-42a6-ab07-d16d41321489.jpg",
+        "side_image": "/media/uploads/2019/09/13/8b96ca08-d4c6-4a00-8689-2b7b6126a518.jpg",
+        "age": 40,
+        "gender": "F",
+        "height": 170.0
+    },
+    "measurements": {
+        "shoulder_width": 0,
+        "chest_width": 19,
+        "waist_width": 19,
+        "hips_width": 19,
+        "chest_depth": 23,
+        "waist_depth": 22,
+        "hips_depth": 22,
+        "chest_circumference": 67,
+        "hips_circumference": 67,
+        "waist_circumference": 67
+    },
+    "debug": {
+        "front_overlayed": "/media/results/2019/09/13/front_overlayed.png",
+        "front_edge": "/media/results/2019/09/13/front_edge.png",
+        "front_output": "/media/results/2019/09/13/front_output.png",
+        "side_overlayed": "/media/results/2019/09/13/side_overlayed.png",
+        "side_edge": "/media/results/2019/09/13/side_edge.png",
+        "side_output": "/media/results/2019/09/13/side_output.png"
+    }
+}
