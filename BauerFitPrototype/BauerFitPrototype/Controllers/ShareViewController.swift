@@ -120,13 +120,9 @@ extension ShareViewController {
             resetButton.topAnchor.constraint(equalTo: shareButton.bottomAnchor, constant: buttonSize.height),
         ])
 
-        resetButton.addTarget(self, action: #selector(resetCapture(_:)), for: .touchUpInside)
+        resetButton.addTarget(self, action: #selector(popToRootViewController), for: .touchUpInside)
     }
-    
-    @objc func resetCapture(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
+
     @objc func sendRequest() {
         #if DEBUG
             draft.frontPhoto = img("sample-front.png")
