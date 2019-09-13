@@ -21,6 +21,9 @@
 		2A45F168232BD21700452DD5 /* MeasurementResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F167232BD21700452DD5 /* MeasurementResultCell.swift */; };
 		2A45F16A232BD76400452DD5 /* sample-result.json in Resources */ = {isa = PBXBuildFile; fileRef = 2A45F169232BD76400452DD5 /* sample-result.json */; };
 		2A45F16C232BEBC000452DD5 /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F16B232BEBC000452DD5 /* UIViewController+Navigation.swift */; };
+		2A45F16F232BF43E00452DD5 /* BaseScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F16E232BF43E00452DD5 /* BaseScrollViewController.swift */; };
+		2A45F172232BFA1D00452DD5 /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F171232BFA1D00452DD5 /* KeyboardController.swift */; };
+		2A45F176232BFB9F00452DD5 /* Notification+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45F175232BFB9F00452DD5 /* Notification+Keyboard.swift */; };
 		2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */; };
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
@@ -50,6 +53,9 @@
 		2A45F167232BD21700452DD5 /* MeasurementResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementResultCell.swift; sourceTree = "<group>"; };
 		2A45F169232BD76400452DD5 /* sample-result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample-result.json"; sourceTree = "<group>"; };
 		2A45F16B232BEBC000452DD5 /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
+		2A45F16E232BF43E00452DD5 /* BaseScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollViewController.swift; sourceTree = "<group>"; };
+		2A45F171232BFA1D00452DD5 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		2A45F175232BFB9F00452DD5 /* Notification+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Keyboard.swift"; sourceTree = "<group>"; };
 		2AA929D4232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorDisplayable.swift; sourceTree = "<group>"; };
 		2AE9E0DF232A623500115986 /* FitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAPI.swift; sourceTree = "<group>"; };
 		2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BauerFitPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +106,7 @@
 		2A1C0B80232A6D8200D09D6B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F16D232BF43100452DD5 /* Base */,
 				ECCAD759231ECB3C00A43343 /* CameraViewController.swift */,
 				ECCAD749231EC89D00A43343 /* CameraController.swift */,
 				ECCAD75D231ED43C00A43343 /* UserInputViewController.swift */,
@@ -160,6 +167,7 @@
 		2A1C0B86232A6E1400D09D6B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2A45F170232BFA0E00452DD5 /* Utility */,
 				2A45F152232B9E9200452DD5 /* Env */,
 				2A1C0B87232A6E1E00D09D6B /* Application */,
 			);
@@ -187,6 +195,7 @@
 			children = (
 				2A1C0B90232A738A00D09D6B /* UIImage+Base64String.swift */,
 				2A45F16B232BEBC000452DD5 /* UIViewController+Navigation.swift */,
+				2A45F175232BFB9F00452DD5 /* Notification+Keyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +206,22 @@
 				2A45F153232B9EA600452DD5 /* Utils.swift */,
 			);
 			path = Env;
+			sourceTree = "<group>";
+		};
+		2A45F16D232BF43100452DD5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2A45F16E232BF43E00452DD5 /* BaseScrollViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		2A45F170232BFA0E00452DD5 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				2A45F171232BFA1D00452DD5 /* KeyboardController.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		2AA929D6232AC6EB00ACEE0C /* Protocols */ = {
@@ -372,16 +397,19 @@
 			files = (
 				2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */,
 				2A45F16C232BEBC000452DD5 /* UIViewController+Navigation.swift in Sources */,
+				2A45F16F232BF43E00452DD5 /* BaseScrollViewController.swift in Sources */,
 				2A45F168232BD21700452DD5 /* MeasurementResultCell.swift in Sources */,
 				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
 				2A45F15E232BB0D200452DD5 /* MeasurementResultsViewController.swift in Sources */,
 				ECCAD75C231ED28000A43343 /* Gender.swift in Sources */,
 				2A45F162232BBA0300452DD5 /* ImageMeasurmentResult+Debug.swift in Sources */,
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
+				2A45F176232BFB9F00452DD5 /* Notification+Keyboard.swift in Sources */,
 				2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */,
 				2A45F154232B9EA600452DD5 /* Utils.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
+				2A45F172232BFA1D00452DD5 /* KeyboardController.swift in Sources */,
 				2A45F160232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
 				2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */,
