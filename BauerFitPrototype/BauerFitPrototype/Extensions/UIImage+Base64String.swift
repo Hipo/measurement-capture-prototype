@@ -11,6 +11,14 @@ import UIKit
 
 extension UIImage {
     func base64String(withHeight height: CGFloat) -> String? {
+        if size.height == height {
+            guard let processedData = self.jpegData(compressionQuality: 0.8) else {
+                return nil
+            }
+            
+            return processedData.base64EncodedString()
+        }
+        
         let ratio = height / size.height
         let width = size.width * ratio
         let scaledSize = CGSize(width: width, height: height)
@@ -20,14 +28,11 @@ extension UIImage {
 
         guard
             let processedImage = processor.process(item: .image(self), options: [.scaleFactor(scale)]),
-            let processedData = processedImage.jpegData(compressionQuality: 1.0)
+            let processedData = processedImage.jpegData(compressionQuality: 0.8)
             else {
                 return nil
         }
 
-        let base64String = processedData.base64EncodedString()
-
-        return base64String
+        return processedData.base64EncodedString()
     }
 }
-

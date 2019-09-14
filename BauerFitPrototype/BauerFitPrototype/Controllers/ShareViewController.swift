@@ -145,21 +145,31 @@ extension ShareViewController {
     }
 
     @objc func calculateMeasurements(_ sender: UIButton) {
-        #if DEBUG
-            draft.frontPhoto = img("sample-front.png")
-            draft.sidePhoto = img("sample-side.png")
-        #endif
-
         showLoadingIndicator()
-        
-        fitAPI.requestImageMeasurements(with: draft) { result in
-            self.hideLoadingIndicator()
 
-            switch result {
-            case let .success(result):
-                self.openResultsScreen(with: result)
-            case let .failure(error):
-                self.show(error) // TODO: Error handling
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard var draft = self?.draft else {
+                return
+            }
+            
+            #if DEBUG
+            let targetImageSize = CGSize(width: 450, height: 800)
+            
+            draft.frontPhoto = img("sample-front.png").resizeAndCrop(toTargetSize: targetImageSize)
+            draft.sidePhoto = img("sample-side.png").resizeAndCrop(toTargetSize: targetImageSize)
+            #endif
+
+            self?.fitAPI.requestImageMeasurements(with: draft) { result in
+                DispatchQueue.main.async { [weak self] in
+                    self?.hideLoadingIndicator()
+                    
+                    switch result {
+                    case let .success(result):
+                        self?.openResultsScreen(with: result)
+                    case let .failure(error):
+                        self?.show(error) // TODO: Error handling
+                    }
+                }
             }
         }
     }

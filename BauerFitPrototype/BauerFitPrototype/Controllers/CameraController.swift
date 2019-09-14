@@ -33,7 +33,7 @@ extension CameraController {
         func createCaptureSession() {
             self.captureSession = AVCaptureSession()
             
-            self.captureSession?.sessionPreset = .photo
+            self.captureSession?.sessionPreset = .high
         }
         
         func configureCaptureDevices() throws {
@@ -61,7 +61,7 @@ extension CameraController {
 
                 if camera.position == .back {
                     if let rearCamera = self.rearCamera,
-                        rearCamera.deviceType == .builtInDualCamera {
+                        rearCamera.deviceType == .builtInWideAngleCamera {
                         continue
                     }
                     

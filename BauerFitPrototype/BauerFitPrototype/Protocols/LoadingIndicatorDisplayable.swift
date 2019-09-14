@@ -22,30 +22,26 @@ extension LoadingIndicatorDisplayable where Self: UIViewController {
         activityIndicatorView.startAnimating()
         activityIndicatorView.center = dimmedOverlayView.center
 
-        DispatchQueue.main.async { [weak self] in
-            dimmedOverlayView.addSubview(activityIndicatorView)
-            self?.view.addSubview(dimmedOverlayView)
+        dimmedOverlayView.addSubview(activityIndicatorView)
+        view.addSubview(dimmedOverlayView)
 
-            UIView.animate(withDuration: 0.33) {
-                dimmedOverlayView.alpha = 1.0
-            }
+        UIView.animate(withDuration: 0.33) {
+            dimmedOverlayView.alpha = 1.0
         }
 
         loadingIndicatorOverlayView = dimmedOverlayView
     }
 
     func hideLoadingIndicator() {
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(
-                withDuration: 0.33,
-                animations: { [weak self] in
-                    self?.loadingIndicatorOverlayView?.alpha = 0.0
-                },
-                completion: { _ in
-                    self?.loadingIndicatorOverlayView?.removeFromSuperview()
-                    self?.loadingIndicatorOverlayView = nil
-                }
-            )
-        }
+        UIView.animate(
+            withDuration: 0.33,
+            animations: { [weak self] in
+                self?.loadingIndicatorOverlayView?.alpha = 0.0
+            },
+            completion: { [weak self] _ in
+                self?.loadingIndicatorOverlayView?.removeFromSuperview()
+                self?.loadingIndicatorOverlayView = nil
+            }
+        )
     }
 }

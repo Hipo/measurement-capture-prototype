@@ -28,6 +28,9 @@
 		2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE9E0DF232A623500115986 /* FitAPI.swift */; };
 		D836A254419A14F200416792 /* Pods_BauerFitPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B807B945E88B2E30D25A6A5 /* Pods_BauerFitPrototype.framework */; };
 		EC37677A232C1658000D6378 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */; };
+		EC37677D232C2409000D6378 /* ekin-front.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EC37677B232C2409000D6378 /* ekin-front.jpeg */; };
+		EC37677E232C2409000D6378 /* ekin-side.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EC37677C232C2409000D6378 /* ekin-side.jpeg */; };
+		EC376780232C83A6000D6378 /* UIImage+ImageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -63,6 +66,9 @@
 		8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.debug.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BauerFitPrototype.release.xcconfig"; path = "Target Support Files/Pods-BauerFitPrototype/Pods-BauerFitPrototype.release.xcconfig"; sourceTree = "<group>"; };
 		EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		EC37677B232C2409000D6378 /* ekin-front.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ekin-front.jpeg"; sourceTree = "<group>"; };
+		EC37677C232C2409000D6378 /* ekin-side.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ekin-side.jpeg"; sourceTree = "<group>"; };
+		EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOperations.swift"; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCAD747231EC89D00A43343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECCAD749231EC89D00A43343 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -149,6 +155,8 @@
 		2A1C0B84232A6DE100D09D6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EC37677B232C2409000D6378 /* ekin-front.jpeg */,
+				EC37677C232C2409000D6378 /* ekin-side.jpeg */,
 				2A45F169232BD76400452DD5 /* sample-result.json */,
 				2A45F159232BAD2700452DD5 /* sample-front.png */,
 				2A45F15B232BAD2D00452DD5 /* sample-side.png */,
@@ -199,6 +207,7 @@
 				2A45F16B232BEBC000452DD5 /* UIViewController+Navigation.swift */,
 				2A45F175232BFB9F00452DD5 /* Notification+Keyboard.swift */,
 				EC376779232C1658000D6378 /* UIImage+CVPixelBuffer.swift */,
+				EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -342,6 +351,8 @@
 			files = (
 				2A45F15C232BAD2E00452DD5 /* sample-side.png in Resources */,
 				ECCAD752231EC89E00A43343 /* LaunchScreen.storyboard in Resources */,
+				EC37677D232C2409000D6378 /* ekin-front.jpeg in Resources */,
+				EC37677E232C2409000D6378 /* ekin-side.jpeg in Resources */,
 				2A45F16A232BD76400452DD5 /* sample-result.json in Resources */,
 				2A45F15A232BAD2700452DD5 /* sample-front.png in Resources */,
 				ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */,
@@ -417,6 +428,7 @@
 				EC37677A232C1658000D6378 /* UIImage+CVPixelBuffer.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
 				2A1C0B8E232A707A00D09D6B /* ImageMeasurmentResult.swift in Sources */,
+				EC376780232C83A6000D6378 /* UIImage+ImageOperations.swift in Sources */,
 				2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */,
 				ECCAD75E231ED43C00A43343 /* UserInputViewController.swift in Sources */,
 				2AE9E0E0232A623500115986 /* FitAPI.swift in Sources */,

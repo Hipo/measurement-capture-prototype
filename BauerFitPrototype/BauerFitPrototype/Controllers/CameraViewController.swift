@@ -172,15 +172,17 @@ extension CameraViewController {
                 return
             }
             
+            let targetImageSize = CGSize(width: 450, height: 800)
+            
             switch strongSelf.captureMode {
             case .front:
-                strongSelf.draft.frontPhoto = image
+                strongSelf.draft.frontPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 strongSelf.draft.frontDepthPhoto = depthImage
                 
                 strongSelf.captureMode = .side
                 strongSelf.startDeviceMotionUpdates()
             case .side:
-                strongSelf.draft.sidePhoto = image
+                strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
