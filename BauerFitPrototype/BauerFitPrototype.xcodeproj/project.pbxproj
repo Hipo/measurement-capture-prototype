@@ -31,6 +31,7 @@
 		EC37677D232C2409000D6378 /* ekin-front.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EC37677B232C2409000D6378 /* ekin-front.jpeg */; };
 		EC37677E232C2409000D6378 /* ekin-side.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EC37677C232C2409000D6378 /* ekin-side.jpeg */; };
 		EC376780232C83A6000D6378 /* UIImage+ImageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */; };
+		EC376782232C8DFD000D6378 /* BAUER-black.png in Resources */ = {isa = PBXBuildFile; fileRef = EC376781232C8DFD000D6378 /* BAUER-black.png */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -69,6 +70,7 @@
 		EC37677B232C2409000D6378 /* ekin-front.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ekin-front.jpeg"; sourceTree = "<group>"; };
 		EC37677C232C2409000D6378 /* ekin-side.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ekin-side.jpeg"; sourceTree = "<group>"; };
 		EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOperations.swift"; sourceTree = "<group>"; };
+		EC376781232C8DFD000D6378 /* BAUER-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BAUER-black.png"; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCAD747231EC89D00A43343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECCAD749231EC89D00A43343 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		2A1C0B84232A6DE100D09D6B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EC376781232C8DFD000D6378 /* BAUER-black.png */,
 				EC37677B232C2409000D6378 /* ekin-front.jpeg */,
 				EC37677C232C2409000D6378 /* ekin-side.jpeg */,
 				2A45F169232BD76400452DD5 /* sample-result.json */,
@@ -356,6 +359,7 @@
 				2A45F16A232BD76400452DD5 /* sample-result.json in Resources */,
 				2A45F15A232BAD2700452DD5 /* sample-front.png in Resources */,
 				ECCAD74F231EC89E00A43343 /* Assets.xcassets in Resources */,
+				EC376782232C8DFD000D6378 /* BAUER-black.png in Resources */,
 				ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,7 +585,7 @@
 			baseConfigurationReference = 8E770E677878626B104EE0CF /* Pods-BauerFitPrototype.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = W9875NV3WF;
 				INFOPLIST_FILE = BauerFitPrototype/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -591,6 +595,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hipo.BauerFitPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Bauer_Fit_Prototype_Development;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -601,7 +606,8 @@
 			baseConfigurationReference = C2BA779579F775E2B9D0F6E6 /* Pods-BauerFitPrototype.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = W9875NV3WF;
 				INFOPLIST_FILE = BauerFitPrototype/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -611,6 +617,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hipo.BauerFitPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Bauer_Fit_Prototype_Ad_Hoc;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
