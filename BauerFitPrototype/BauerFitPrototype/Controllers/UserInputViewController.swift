@@ -98,7 +98,7 @@ class UserInputViewController: BaseScrollViewController {
         heightField.textAlignment = .center
         heightField.keyboardType = .numberPad
         heightField.autocorrectionType = .no
-        heightField.placeholder = "HEIGHT"
+        heightField.placeholder = "HEIGHT (cm)"
     }
 
     private func configureMaleGenderButtonAppearance() {

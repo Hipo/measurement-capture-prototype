@@ -30,7 +30,8 @@ class CameraViewController: UIViewController {
     
     var cameraCaptureButton: UIButton?
     var silhouetteView: UIImageView?
-    
+    var tiltStatusLabel: UILabel?
+
     override var prefersStatusBarHidden: Bool { return true }
     
     init(draft: ImageMeasurementDraft) {
@@ -131,6 +132,24 @@ extension CameraViewController {
         captureButton.addTarget(self, action: #selector(captureImage(_:)), for: .touchUpInside)
         
         cameraCaptureButton = captureButton
+        
+        let statusLabel = UILabel(frame: .zero)
+        
+        statusLabel.font = .systemFont(ofSize: 16.0)
+        statusLabel.textColor = .white
+        statusLabel.textAlignment = .center
+        statusLabel.numberOfLines = 1
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(statusLabel)
+        
+        NSLayoutConstraint.activate([
+            statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30.0),
+            statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30.0),
+            statusLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.0),
+            ])
+        
+        tiltStatusLabel = statusLabel
     }
     
     func updateForCaptureMode() {
@@ -206,5 +225,17 @@ extension CameraViewController {
         
         cameraCaptureButton?.isEnabled = enabled
         cameraCaptureButton?.alpha = enabled ? 1.0 : 0.5
+        
+        if -motionData.gravity.y <= 0.9 {
+            tiltStatusLabel?.text = "Keep your phone upright"
+        } else if -motionData.gravity.y >= 1.1 {
+            tiltStatusLabel?.text = "Keep your phone upright"
+        } else if motionData.gravity.z <= -0.1 {
+            tiltStatusLabel?.text = "Tilt backwards"
+        } else if motionData.gravity.z >= 0.1 {
+            tiltStatusLabel?.text = "Tilt forwards"
+        } else {
+            tiltStatusLabel?.text = nil
+        }
     }
 }
