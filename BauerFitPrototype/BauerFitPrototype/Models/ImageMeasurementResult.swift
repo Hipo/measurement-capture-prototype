@@ -1,5 +1,5 @@
 //
-//  ImageMeasurmentResult.swift
+//  ImageMeasurementResult.swift
 //  BauerFitPrototype
 //
 //  Created by Eray on 12.09.2019.

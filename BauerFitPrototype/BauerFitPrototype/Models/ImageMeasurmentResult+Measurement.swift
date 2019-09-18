@@ -20,6 +20,7 @@ extension ImageMeasurementResult {
         let waistCircumference: Int?
         let waistDepth: Int?
         let waistWidth: Int?
+        let shinLength: Int?
 
         required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -34,6 +35,7 @@ extension ImageMeasurementResult {
             waistCircumference = try container.decodeIfPresent(Int.self, forKey: .waistCircumference)
             waistDepth = try container.decodeIfPresent(Int.self, forKey: .waistDepth)
             waistWidth = try container.decodeIfPresent(Int.self, forKey: .waistWidth)
+            shinLength = try container.decodeIfPresent(Int.self, forKey: .shinLength)
         }
 
         func encode(to encoder: Encoder) throws {
@@ -49,6 +51,7 @@ extension ImageMeasurementResult {
             try container.encodeIfPresent(waistCircumference, forKey: .waistCircumference)
             try container.encodeIfPresent(waistDepth, forKey: .waistDepth)
             try container.encodeIfPresent(waistWidth, forKey: .waistWidth)
+            try container.encodeIfPresent(shinLength, forKey: .shinLength)
         }
     }
 }
@@ -65,6 +68,7 @@ extension ImageMeasurementResult.Measurements {
         case waistCircumference = "waist_circumference"
         case waistDepth = "waist_depth"
         case waistWidth = "waist_width"
+        case shinLength = "shin_length"
     }
 }
 
@@ -108,6 +112,9 @@ extension ImageMeasurementResult.Measurements {
         }
         if let waistWidth = waistWidth {
             array.append(Result(name: "Waist Width", value: waistWidth))
+        }
+        if let shinLength = shinLength {
+            array.append(Result(name: "Shin Length", value: shinLength))
         }
 
         return array
