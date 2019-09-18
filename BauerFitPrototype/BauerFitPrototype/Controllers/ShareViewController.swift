@@ -170,12 +170,12 @@ extension ShareViewController {
                 return
             }
             
-            #if DEBUG
-            let targetImageSize = CGSize(width: 450, height: 800)
-            
-            draft.frontPhoto = img("sample-front.png").resizeAndCrop(toTargetSize: targetImageSize)
-            draft.sidePhoto = img("sample-side.png").resizeAndCrop(toTargetSize: targetImageSize)
-            #endif
+//            #if DEBUG
+//            let targetImageSize = CGSize(width: 450, height: 800)
+//
+//            draft.frontPhoto = img("sample-front.png").resizeAndCrop(toTargetSize: targetImageSize)
+//            draft.sidePhoto = img("sample-side.png").resizeAndCrop(toTargetSize: targetImageSize)
+//            #endif
 
             self?.fitAPI.requestImageMeasurements(with: draft) { result in
                 DispatchQueue.main.async { [weak self] in
@@ -185,7 +185,14 @@ extension ShareViewController {
                     case let .success(result):
                         self?.openResultsScreen(with: result)
                     case let .failure(error):
-                        self?.show(error) // TODO: Error handling
+                        switch error {
+                        case .badRequest:
+                            self?.showError(withTitle: "Failed to Measure",
+                                            message: "We were unable to extract measurements from these photos. Please make sure your subject is positioned properly in front of a solid background with contrasting clothes. Tap Reset and try again.")
+                        default:
+                            self?.showError(withTitle: "Network Error",
+                                            message: error.localizedDescription)
+                        }
                     }
                 }
             }
@@ -215,9 +222,7 @@ extension ShareViewController {
         present(ac, animated: true)
     }
 
-    private func show(_ error: Error) {
-        let title = "Network Error"
-        let message = error.localizedDescription
+    private func showError(withTitle title: String, message: String) {
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "OK", style: .cancel)
 
