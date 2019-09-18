@@ -214,7 +214,7 @@ extension CameraViewController {
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 //strongSelf.draft.sideDepthPhoto = depthImage
                 
-                strongSelf.captureMode = .side
+                strongSelf.captureMode = .arm
                 strongSelf.startDeviceMotionUpdates()
             case .arm:
                 strongSelf.draft.sideArmPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)

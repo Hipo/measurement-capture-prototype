@@ -55,9 +55,9 @@ extension ShareViewController {
         frontPhotoView.layer.borderWidth = 3
         
         NSLayoutConstraint.activate([
-            frontPhotoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            frontPhotoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
             frontPhotoView.heightAnchor.constraint(equalTo: frontPhotoView.widthAnchor, multiplier: 1.5),
-            frontPhotoView.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -15.0),
+            frontPhotoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             frontPhotoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0),
         ])
         
@@ -70,14 +70,32 @@ extension ShareViewController {
         view.addSubview(sidePhotoView)
         
         NSLayoutConstraint.activate([
-            sidePhotoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            sidePhotoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
             sidePhotoView.heightAnchor.constraint(equalTo: frontPhotoView.widthAnchor, multiplier: 1.5),
-            sidePhotoView.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 15.0),
+            sidePhotoView.trailingAnchor.constraint(equalTo: frontPhotoView.leadingAnchor, constant: -15.0),
             sidePhotoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0),
             ])
         
         sidePhotoView.layer.borderColor = UIColor.black.cgColor
         sidePhotoView.layer.borderWidth = 3
+        
+        let sideArmPhotoView = UIImageView(frame: .zero)
+        
+        sideArmPhotoView.image = draft.sideArmPhoto
+        sideArmPhotoView.contentMode = .scaleAspectFit
+        sideArmPhotoView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(sideArmPhotoView)
+        
+        NSLayoutConstraint.activate([
+            sideArmPhotoView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
+            sideArmPhotoView.heightAnchor.constraint(equalTo: frontPhotoView.widthAnchor, multiplier: 1.5),
+            sideArmPhotoView.leadingAnchor.constraint(equalTo: frontPhotoView.trailingAnchor, constant: 15.0),
+            sideArmPhotoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0),
+            ])
+        
+        sideArmPhotoView.layer.borderColor = UIColor.black.cgColor
+        sideArmPhotoView.layer.borderWidth = 3
         
         let buttonSize = CGSize(width: 132.0, height: 66.0)
         let shareButton = UIButton(frame: .zero)
@@ -175,11 +193,13 @@ extension ShareViewController {
     }
     
     @objc func shareResults(_ sender: UIButton) {
-        guard let frontPhoto = draft.frontPhoto, let sidePhoto = draft.sidePhoto else {
+        guard let frontPhoto = draft.frontPhoto,
+            let sidePhoto = draft.sidePhoto,
+            let sideArmPhoto = draft.sideArmPhoto else {
             return
         }
         
-        var activityItems = [frontPhoto, sidePhoto]
+        var activityItems = [frontPhoto, sidePhoto, sideArmPhoto]
         
         if let frontDepthPhoto = draft.frontDepthPhoto {
             activityItems.append(frontDepthPhoto)
