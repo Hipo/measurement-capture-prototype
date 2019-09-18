@@ -14,6 +14,7 @@ import CoreMotion
 public enum CaptureMode {
     case front
     case side
+    case arm
 }
 
 class CameraViewController: UIViewController {
@@ -176,6 +177,15 @@ extension CameraViewController {
             case .none:
                 break
             }
+        case .arm:
+            switch draft.gender {
+            case .female?:
+                silhouetteView.image = UIImage(named: "woman-side-arm")?.withRenderingMode(.alwaysTemplate)
+            case .male?:
+                silhouetteView.image = UIImage(named: "man-side-arm")?.withRenderingMode(.alwaysTemplate)
+            case .none:
+                break
+            }
         }
     }
     
@@ -196,13 +206,19 @@ extension CameraViewController {
             switch strongSelf.captureMode {
             case .front:
                 strongSelf.draft.frontPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
-                strongSelf.draft.frontDepthPhoto = depthImage
+                //strongSelf.draft.frontDepthPhoto = depthImage
                 
                 strongSelf.captureMode = .side
                 strongSelf.startDeviceMotionUpdates()
             case .side:
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
-                strongSelf.draft.sideDepthPhoto = depthImage
+                //strongSelf.draft.sideDepthPhoto = depthImage
+                
+                strongSelf.captureMode = .side
+                strongSelf.startDeviceMotionUpdates()
+            case .arm:
+                strongSelf.draft.sideArmPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
+                //strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
                 let shareViewController = ShareViewController(draft: strongSelf.draft)

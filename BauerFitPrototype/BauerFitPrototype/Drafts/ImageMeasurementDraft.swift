@@ -13,6 +13,7 @@ struct ImageMeasurementDraft: JSONBody {
 
     var frontPhoto: UIImage?
     var sidePhoto: UIImage?
+    var sideArmPhoto: UIImage?
     var frontDepthPhoto: UIImage?
     var sideDepthPhoto: UIImage?
     var age: Int?
@@ -28,6 +29,9 @@ struct ImageMeasurementDraft: JSONBody {
         }
         if let sidePhoto = sidePhoto {
             pairs.append(Pair(key: .sidePhoto, value: sidePhoto.base64String(withHeight: 800)))
+        }
+        if let sideArmPhoto = sideArmPhoto {
+            pairs.append(Pair(key: .sideArmPhoto, value: sideArmPhoto.base64String(withHeight: 800)))
         }
         if let age = age {
             pairs.append(Pair(key: .age, value: age))
