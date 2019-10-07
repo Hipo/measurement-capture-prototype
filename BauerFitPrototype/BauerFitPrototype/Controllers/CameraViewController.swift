@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 import CoreMotion
+import Vision
+import CoreMedia
+import CoreML
 
 
 public enum CaptureMode {
@@ -23,6 +26,41 @@ class CameraViewController: UIViewController {
     var captureMode: CaptureMode = .front {
         didSet {
             updateForCaptureMode()
+            evaluateCameraCaptureState()
+        }
+    }
+    
+    let predictionZones = [
+        PredictionZone(predictionRect: CGRect(x: 0.4, y: 0.04, width: 0.2, height: 0.1), pointType: .top),
+        PredictionZone(predictionRect: CGRect(x: 0.05, y: 0.44, width: 0.2, height: 0.1), pointType: .leftWrist),
+        PredictionZone(predictionRect: CGRect(x: 0.76, y: 0.44, width: 0.2, height: 0.1), pointType: .rightWrist),
+        PredictionZone(predictionRect: CGRect(x: 0.21, y: 0.83, width: 0.2, height: 0.1), pointType: .leftAnkle),
+        PredictionZone(predictionRect: CGRect(x: 0.60, y: 0.83, width: 0.2, height: 0.1), pointType: .rightAnkle),
+    ]
+    
+    typealias EstimationModel = model_cpm
+    var postProcessor: HeatmapPostProcessor = HeatmapPostProcessor()
+    var mvfilters: [MovingAverageFilter] = []
+    var request: VNCoreMLRequest?
+    var faceDetectionRequest: VNDetectFaceRectanglesRequest?
+    let visionModel: VNCoreMLModel
+    
+    var phonePositionError = ""
+    var phoneInCorrectPosition = false {
+        didSet {
+            evaluateCameraCaptureState()
+        }
+    }
+    
+    var faceDetected = false {
+        didSet {
+            evaluateCameraCaptureState()
+        }
+    }
+    
+    var allZonesDetected = false {
+        didSet {
+            evaluateCameraCaptureState()
         }
     }
     
@@ -30,16 +68,45 @@ class CameraViewController: UIViewController {
     
     var cameraCaptureButton: UIButton?
     var silhouetteView: UIImageView?
-    var tiltStatusLabel: UILabel?
+    var errorLabel: UILabel?
 
     override var prefersStatusBarHidden: Bool { return true }
     
     init(draft: ImageMeasurementDraft) {
         self.draft = draft
         
+        guard let visionModel = try? VNCoreMLModel(for: EstimationModel().model) else {
+            fatalError("cannot load the ml model")
+        }
+        
+        self.visionModel = visionModel
+        
         super.init(nibName: nil, bundle: nil)
         
         startDeviceMotionUpdates()
+        
+        let request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
+        
+        request.imageCropAndScaleOption = .scaleFill
+
+        self.request = request
+        
+        let faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: { [weak self] (request, error) in
+            if error != nil {
+                print("FaceDetection error: \(String(describing: error)).")
+            }
+            
+            guard let faceDetectionRequest = request as? VNDetectFaceRectanglesRequest,
+                let results = faceDetectionRequest.results as? [VNFaceObservation] else {
+                    return
+            }
+            
+            self?.faceDetected = (results.count > 0)
+        })
+        
+        self.faceDetectionRequest = faceDetectionRequest
+
+        cameraController.delegate = self
     }
     
     func startDeviceMotionUpdates() {
@@ -93,7 +160,7 @@ extension CameraViewController {
         silhouetteView.translatesAutoresizingMaskIntoConstraints = false
         silhouetteView.isUserInteractionEnabled = false
         silhouetteView.contentMode = .scaleAspectFit
-        
+        silhouetteView.isHidden = !faceDetected
         silhouetteView.tintColor = .white
         
         view.addSubview(silhouetteView)
@@ -105,6 +172,19 @@ extension CameraViewController {
         ])
         
         self.silhouetteView = silhouetteView
+        
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        
+        for zone in predictionZones {
+            zone.errorView.frame = CGRect(x: zone.predictionRect.origin.x * width,
+                                          y: zone.predictionRect.origin.y * height,
+                                          width: zone.predictionRect.size.width * width,
+                                          height: zone.predictionRect.size.height * height)
+            
+            
+            view.addSubview(zone.errorView)
+        }
         
         updateForCaptureMode()
 
@@ -149,7 +229,7 @@ extension CameraViewController {
             statusLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20.0),
             ])
         
-        tiltStatusLabel = statusLabel
+        errorLabel = statusLabel
     }
     
     func updateForCaptureMode() {
@@ -235,22 +315,217 @@ extension CameraViewController {
             return
         }
         
-        let enabled = (-motionData.gravity.y > 0.9 && -motionData.gravity.y < 1.1)
-            && (motionData.gravity.z > -0.1 && motionData.gravity.z < 0.1)
+        if -motionData.gravity.y <= 0.8 {
+            phonePositionError = "Keep your phone upright"
+        } else if -motionData.gravity.y >= 1.2 {
+            phonePositionError = "Keep your phone upright"
+        } else if motionData.gravity.z <= -0.2 {
+            phonePositionError = "Tilt backwards"
+        } else if motionData.gravity.z >= 0.2 {
+            phonePositionError = "Tilt forwards"
+        } else {
+            phonePositionError = ""
+        }
         
+        phoneInCorrectPosition = (-motionData.gravity.y > 0.9 && -motionData.gravity.y < 1.1)
+                                    && (motionData.gravity.z > -0.1 && motionData.gravity.z < 0.1)
+    }
+    
+    func evaluateCameraCaptureState() {
+        DispatchQueue.main.async {
+            if self.captureMode != .front {
+                for zone in self.predictionZones {
+                    zone.errorView.isHidden = true
+                }
+            }
+            
+            if !self.faceDetected && self.captureMode == .front {
+                self.silhouetteView?.isHidden = true
+                
+                for zone in self.predictionZones {
+                    zone.errorView.isHidden = true
+                }
+                
+                self.errorLabel?.text = "Position subject in view"
+
+                self.setCameraCaptureEnabled(enabled: false)
+                
+                return
+            } else if !self.phoneInCorrectPosition {
+                self.silhouetteView?.isHidden = false
+                self.errorLabel?.text = self.phonePositionError
+                
+                for zone in self.predictionZones {
+                    zone.errorView.isHidden = !(self.captureMode == .front)
+                }
+
+                self.setCameraCaptureEnabled(enabled: false)
+                
+                return
+            } else if !self.allZonesDetected && self.captureMode == .front {
+                self.silhouetteView?.isHidden = false
+                self.errorLabel?.text = "Position head, wrists, ankles in zones"
+                
+                for zone in self.predictionZones {
+                    zone.errorView.isHidden = false
+                }
+                
+                self.setCameraCaptureEnabled(enabled: false)
+                
+                return
+            }
+            
+            self.errorLabel?.text = ""
+            self.setCameraCaptureEnabled(enabled: true)
+        }
+    }
+    
+    func setCameraCaptureEnabled(enabled: Bool) {
         cameraCaptureButton?.isEnabled = enabled
         cameraCaptureButton?.alpha = enabled ? 1.0 : 0.5
+    }
+}
+
+extension CameraViewController : CameraControllerDelegate {
+    
+    func videoCapture(_ capture: CameraController,
+                      didCaptureVideoFrame pixelBuffer: CVPixelBuffer?,
+                      timestamp: CMTime) {
         
-        if -motionData.gravity.y <= 0.8 {
-            tiltStatusLabel?.text = "Keep your phone upright"
-        } else if -motionData.gravity.y >= 1.2 {
-            tiltStatusLabel?.text = "Keep your phone upright"
-        } else if motionData.gravity.z <= -0.2 {
-            tiltStatusLabel?.text = "Tilt backwards"
-        } else if motionData.gravity.z >= 0.2 {
-            tiltStatusLabel?.text = "Tilt forwards"
-        } else {
-            tiltStatusLabel?.text = nil
+        guard let pixelBuffer = pixelBuffer else {
+            return
+        }
+        
+        self.predictUsingVision(pixelBuffer: pixelBuffer)
+    }
+}
+
+extension CameraViewController {
+
+    func predictUsingVision(pixelBuffer: CVPixelBuffer) {
+        guard let request = request,
+            let faceDetectionRequest = faceDetectionRequest else {
+            return
+        }
+        
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer)
+        
+        try? imageRequestHandler.perform([faceDetectionRequest, request])
+    }
+    
+    func visionRequestDidComplete(request: VNRequest, error: Error?) {
+        if !faceDetected || self.captureMode != .front {
+            return
+        }
+
+        guard let observations = request.results as? [VNCoreMLFeatureValueObservation],
+            let heatmaps = observations.first?.featureValue.multiArrayValue else {
+                return
+        }
+        
+        var predictedPoints = postProcessor.convertToPredictedPoints(from: heatmaps)
+        
+        /* --------------------- moving average filter ----------------------- */
+        if predictedPoints.count != mvfilters.count {
+            mvfilters = predictedPoints.map { _ in MovingAverageFilter(limit: 3) }
+        }
+        
+        for (predictedPoint, filter) in zip(predictedPoints, mvfilters) {
+            filter.add(element: predictedPoint)
+        }
+        
+        predictedPoints = mvfilters.map { $0.averagedValue() }
+        /* =================================================================== */
+        
+        /* ======================= display the results ======================= */
+        DispatchQueue.main.sync {
+            var topPointPrediction: PredictedPoint?
+            var leftWristPrediction: PredictedPoint?
+            var rightWristPrediction: PredictedPoint?
+            var leftAnklePrediction: PredictedPoint?
+            var rightAnklePrediction: PredictedPoint?
+            var finalPoints:[PredictedPoint] = []
+
+            for (index, point) in predictedPoints.enumerated() {
+                guard let point = point,
+                    let index = PredictedPointType(rawValue: index) else {
+                    continue
+                }
+                
+                switch index {
+                case .top:
+                    topPointPrediction = point
+                case .leftAnkle:
+                    leftAnklePrediction = point
+                case .rightAnkle:
+                    rightAnklePrediction = point
+                case .leftWrist:
+                    leftWristPrediction = point
+                case .rightWrist:
+                    rightWristPrediction = point
+                default:
+                    continue
+                }
+                
+                finalPoints.append(point)
+            }
+            
+            //pointsView?.bodyPoints = finalPoints
+            
+            // TODO: Put together cascading set of rules based on point locations and confidence
+            /*
+             Things to look for:
+             
+             * Check confidence in all points --> Cannot see subject
+             * Top and left/right ankle should be close to top/bottom edges (within 5%) --> Get closer
+             * Middle line should intersect with top and left/right ankle center point (within 5%) --> Position the subject at the center of frame
+             * Arms should be spread out --> Spread out arms
+             * Legs should be spread out --> Spread out legs
+             
+             */
+            
+            guard let topPoint = topPointPrediction,
+                let leftWrist = leftWristPrediction,
+                let rightWrist = rightWristPrediction,
+                let leftAnkle = leftAnklePrediction,
+                let rightAnkle = rightAnklePrediction else {
+                    return // TODO: Show error (missing points)
+            }
+            
+            for point in finalPoints {
+                if point.maxConfidence < 0.8 {
+                    return // TODO: Show error (position better)
+                }
+            }
+            
+            var matchedZones: [PredictionZone] = []
+            
+            for zone in predictionZones {
+                var positionMatched = false
+                
+                switch zone.pointType {
+                case .top:
+                    positionMatched = zone.contains(point: topPoint.maxPoint)
+                case .leftWrist:
+                    positionMatched = zone.contains(point: leftWrist.maxPoint)
+                case .rightWrist:
+                    positionMatched = zone.contains(point: rightWrist.maxPoint)
+                case .leftAnkle:
+                    positionMatched = zone.contains(point: leftAnkle.maxPoint)
+                case .rightAnkle:
+                    positionMatched = zone.contains(point: rightAnkle.maxPoint)
+                default:
+                    continue
+                }
+                
+                zone.errorView.showError = !positionMatched
+                
+                if positionMatched {
+                    matchedZones.append(zone)
+                }
+            }
+            
+            allZonesDetected = (matchedZones.count == predictionZones.count)
         }
     }
 }

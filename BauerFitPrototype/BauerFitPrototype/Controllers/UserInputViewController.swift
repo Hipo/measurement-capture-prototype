@@ -78,6 +78,7 @@ class UserInputViewController: BaseScrollViewController {
         ageField.layer.borderColor = UIColor.black.cgColor
         ageField.layer.borderWidth = 3
         ageField.textAlignment = .center
+        ageField.textColor = .black
         ageField.keyboardType = .numberPad
         ageField.autocorrectionType = .no
         ageField.placeholder = "AGE"
@@ -86,6 +87,7 @@ class UserInputViewController: BaseScrollViewController {
     private func configureWeightFieldAppearance() {
         weightField.layer.borderColor = UIColor.black.cgColor
         weightField.layer.borderWidth = 3
+        weightField.textColor = .black
         weightField.textAlignment = .center
         weightField.keyboardType = .numberPad
         weightField.autocorrectionType = .no
@@ -95,6 +97,7 @@ class UserInputViewController: BaseScrollViewController {
     private func configureHeightFieldAppearance() {
         heightField.layer.borderColor = UIColor.black.cgColor
         heightField.layer.borderWidth = 3
+        heightField.textColor = .black
         heightField.textAlignment = .center
         heightField.keyboardType = .numberPad
         heightField.autocorrectionType = .no

@@ -9,6 +9,14 @@
 import AVFoundation
 import UIKit
 
+
+protocol CameraControllerDelegate: class {
+  func videoCapture(_ capture: CameraController,
+                    didCaptureVideoFrame: CVPixelBuffer?,
+                    timestamp: CMTime)
+}
+
+
 class CameraController: NSObject {
     var captureSession: AVCaptureSession?
     
@@ -18,6 +26,7 @@ class CameraController: NSObject {
     var frontCameraInput: AVCaptureDeviceInput?
     
     var photoOutput: AVCapturePhotoOutput?
+    private lazy var videoDataOutput = AVCaptureVideoDataOutput()
     
     var rearCamera: AVCaptureDevice?
     var rearCameraInput: AVCaptureDeviceInput?
@@ -26,6 +35,8 @@ class CameraController: NSObject {
     
     var flashMode = AVCaptureDevice.FlashMode.off
     var photoCaptureCompletionBlock: ((UIImage?, UIImage?, Error?) -> Void)?
+    
+    weak var delegate: CameraControllerDelegate?
 }
 
 extension CameraController {
@@ -133,6 +144,7 @@ extension CameraController {
                 createCaptureSession()
                 try configureCaptureDevices()
                 try configureDeviceInputs()
+                try self.configureVideoOutput()
                 try configurePhotoOutput()
             }
                 
@@ -148,6 +160,26 @@ extension CameraController {
                 completionHandler(nil)
             }
         }
+    }
+    
+    func configureVideoOutput() throws {
+        guard let captureSession = self.captureSession else {
+            throw CameraControllerError.captureSessionIsMissing
+        }
+        
+        let sampleBufferQueue = DispatchQueue(label: "sampleBufferQueue")
+
+        videoDataOutput.setSampleBufferDelegate(self, queue: sampleBufferQueue)
+        videoDataOutput.alwaysDiscardsLateVideoFrames = true
+        videoDataOutput.videoSettings = [ String(kCVPixelBufferPixelFormatTypeKey) : kCMPixelFormat_32BGRA]
+
+        if !captureSession.canAddOutput(videoDataOutput) {
+          throw CameraControllerError.captureSessionIsMissing
+        }
+
+        captureSession.addOutput(videoDataOutput)
+        
+        videoDataOutput.connection(with: .video)?.videoOrientation = .portrait
     }
     
     func displayPreview(on view: UIView) throws {
@@ -287,6 +319,21 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
         
         completionBlock(image, nil, nil)
     }
+}
+
+extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
+
+    func captureOutput(_ output: AVCaptureOutput,
+                       didOutput sampleBuffer: CMSampleBuffer,
+                       from connection: AVCaptureConnection) {
+
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+            
+        delegate?.videoCapture(self, didCaptureVideoFrame: imageBuffer,
+                               timestamp: timestamp)
+    }
+
 }
 
 extension CameraController {

@@ -32,6 +32,12 @@
 		EC37677E232C2409000D6378 /* ekin-side.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EC37677C232C2409000D6378 /* ekin-side.jpeg */; };
 		EC376780232C83A6000D6378 /* UIImage+ImageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */; };
 		EC376782232C8DFD000D6378 /* BAUER-black.png in Resources */ = {isa = PBXBuildFile; fileRef = EC376781232C8DFD000D6378 /* BAUER-black.png */; };
+		EC64CD21234BD89600E86E01 /* PredictedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1A234BD89500E86E01 /* PredictedPoint.swift */; };
+		EC64CD22234BD89600E86E01 /* MovingAverageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1B234BD89500E86E01 /* MovingAverageFilter.swift */; };
+		EC64CD23234BD89600E86E01 /* PredictionPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1C234BD89500E86E01 /* PredictionPointsView.swift */; };
+		EC64CD24234BD89600E86E01 /* HeatmapPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1D234BD89500E86E01 /* HeatmapPostProcessor.swift */; };
+		EC64CD25234BD89600E86E01 /* model_cpm.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1E234BD89500E86E01 /* model_cpm.mlmodel */; };
+		EC64CD26234BD89600E86E01 /* ZoneErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64CD1F234BD89500E86E01 /* ZoneErrorView.swift */; };
 		ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD747231EC89D00A43343 /* AppDelegate.swift */; };
 		ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCAD749231EC89D00A43343 /* CameraController.swift */; };
 		ECCAD74D231EC89D00A43343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCAD74B231EC89D00A43343 /* Main.storyboard */; };
@@ -71,6 +77,12 @@
 		EC37677C232C2409000D6378 /* ekin-side.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ekin-side.jpeg"; sourceTree = "<group>"; };
 		EC37677F232C83A6000D6378 /* UIImage+ImageOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOperations.swift"; sourceTree = "<group>"; };
 		EC376781232C8DFD000D6378 /* BAUER-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BAUER-black.png"; sourceTree = "<group>"; };
+		EC64CD1A234BD89500E86E01 /* PredictedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictedPoint.swift; sourceTree = "<group>"; };
+		EC64CD1B234BD89500E86E01 /* MovingAverageFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingAverageFilter.swift; sourceTree = "<group>"; };
+		EC64CD1C234BD89500E86E01 /* PredictionPointsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictionPointsView.swift; sourceTree = "<group>"; };
+		EC64CD1D234BD89500E86E01 /* HeatmapPostProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeatmapPostProcessor.swift; sourceTree = "<group>"; };
+		EC64CD1E234BD89500E86E01 /* model_cpm.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = model_cpm.mlmodel; sourceTree = "<group>"; };
+		EC64CD1F234BD89500E86E01 /* ZoneErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneErrorView.swift; sourceTree = "<group>"; };
 		ECCAD744231EC89D00A43343 /* BauerFitPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BauerFitPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCAD747231EC89D00A43343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECCAD749231EC89D00A43343 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
@@ -256,6 +268,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EC64CD18234BD89500E86E01 /* Prediction */ = {
+			isa = PBXGroup;
+			children = (
+				EC64CD1A234BD89500E86E01 /* PredictedPoint.swift */,
+				EC64CD1B234BD89500E86E01 /* MovingAverageFilter.swift */,
+				EC64CD1C234BD89500E86E01 /* PredictionPointsView.swift */,
+				EC64CD1D234BD89500E86E01 /* HeatmapPostProcessor.swift */,
+				EC64CD1E234BD89500E86E01 /* model_cpm.mlmodel */,
+				EC64CD1F234BD89500E86E01 /* ZoneErrorView.swift */,
+			);
+			path = Prediction;
+			sourceTree = "<group>";
+		};
 		ECCAD73B231EC89D00A43343 = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +302,7 @@
 		ECCAD746231EC89D00A43343 /* BauerFitPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				EC64CD18234BD89500E86E01 /* Prediction */,
 				2A1C0B80232A6D8200D09D6B /* Controllers */,
 				2A1C0B86232A6E1400D09D6B /* Core */,
 				2A1C0B88232A6E7C00D09D6B /* Drafts */,
@@ -415,8 +441,10 @@
 			files = (
 				2A1C0B8A232A6EC300D09D6B /* ImageMeasurementDraft.swift in Sources */,
 				2A45F16C232BEBC000452DD5 /* UIViewController+Navigation.swift in Sources */,
+				EC64CD23234BD89600E86E01 /* PredictionPointsView.swift in Sources */,
 				2A45F16F232BF43E00452DD5 /* BaseScrollViewController.swift in Sources */,
 				2A45F168232BD21700452DD5 /* MeasurementResultCell.swift in Sources */,
+				EC64CD26234BD89600E86E01 /* ZoneErrorView.swift in Sources */,
 				ECCAD760231EDA1000A43343 /* ShareViewController.swift in Sources */,
 				2A45F15E232BB0D200452DD5 /* MeasurementResultsViewController.swift in Sources */,
 				ECCAD75C231ED28000A43343 /* Gender.swift in Sources */,
@@ -424,13 +452,17 @@
 				ECCAD74A231EC89D00A43343 /* CameraController.swift in Sources */,
 				2A45F176232BFB9F00452DD5 /* Notification+Keyboard.swift in Sources */,
 				2A1C0B91232A738A00D09D6B /* UIImage+Base64String.swift in Sources */,
+				EC64CD22234BD89600E86E01 /* MovingAverageFilter.swift in Sources */,
 				2A45F154232B9EA600452DD5 /* Utils.swift in Sources */,
 				ECCAD748231EC89D00A43343 /* AppDelegate.swift in Sources */,
+				EC64CD25234BD89600E86E01 /* model_cpm.mlmodel in Sources */,
+				EC64CD21234BD89600E86E01 /* PredictedPoint.swift in Sources */,
 				ECCAD75A231ECB3C00A43343 /* CameraViewController.swift in Sources */,
 				2A45F172232BFA1D00452DD5 /* KeyboardController.swift in Sources */,
 				2A45F160232BBA0000452DD5 /* ImageMeasurmentResult+Measurement.swift in Sources */,
 				EC37677A232C1658000D6378 /* UIImage+CVPixelBuffer.swift in Sources */,
 				2A1C0B8C232A6F3600D09D6B /* RequestParameter.swift in Sources */,
+				EC64CD24234BD89600E86E01 /* HeatmapPostProcessor.swift in Sources */,
 				2A1C0B8E232A707A00D09D6B /* ImageMeasurementResult.swift in Sources */,
 				EC376780232C83A6000D6378 /* UIImage+ImageOperations.swift in Sources */,
 				2AA929D5232AC2CE00ACEE0C /* LoadingIndicatorDisplayable.swift in Sources */,
