@@ -166,7 +166,7 @@ extension ShareViewController {
         showLoadingIndicator()
 
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard var draft = self?.draft else {
+            guard let draft = self?.draft else {
                 return
             }
             
