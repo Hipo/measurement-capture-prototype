@@ -14,7 +14,6 @@ import CoreMotion
 public enum CaptureMode {
     case front
     case side
-    case arm
 }
 
 class CameraViewController: UIViewController {
@@ -177,15 +176,15 @@ extension CameraViewController {
             case .none:
                 break
             }
-        case .arm:
-            switch draft.gender {
-            case .female?:
-                silhouetteView.image = UIImage(named: "woman-side-arm")?.withRenderingMode(.alwaysTemplate)
-            case .male?:
-                silhouetteView.image = UIImage(named: "man-side-arm")?.withRenderingMode(.alwaysTemplate)
-            case .none:
-                break
-            }
+//        case .arm:
+//            switch draft.gender {
+//            case .female?:
+//                silhouetteView.image = UIImage(named: "woman-side-arm")?.withRenderingMode(.alwaysTemplate)
+//            case .male?:
+//                silhouetteView.image = UIImage(named: "man-side-arm")?.withRenderingMode(.alwaysTemplate)
+//            case .none:
+//                break
+//            }
         }
     }
     
@@ -214,10 +213,10 @@ extension CameraViewController {
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 //strongSelf.draft.sideDepthPhoto = depthImage
                 
-                strongSelf.captureMode = .arm
-                strongSelf.startDeviceMotionUpdates()
-            case .arm:
-                strongSelf.draft.sideArmPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
+//                strongSelf.captureMode = .arm
+//                strongSelf.startDeviceMotionUpdates()
+//            case .arm:
+//                strongSelf.draft.sideArmPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 //strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
@@ -242,13 +241,13 @@ extension CameraViewController {
         cameraCaptureButton?.isEnabled = enabled
         cameraCaptureButton?.alpha = enabled ? 1.0 : 0.5
         
-        if -motionData.gravity.y <= 0.9 {
+        if -motionData.gravity.y <= 0.8 {
             tiltStatusLabel?.text = "Keep your phone upright"
-        } else if -motionData.gravity.y >= 1.1 {
+        } else if -motionData.gravity.y >= 1.2 {
             tiltStatusLabel?.text = "Keep your phone upright"
-        } else if motionData.gravity.z <= -0.1 {
+        } else if motionData.gravity.z <= -0.2 {
             tiltStatusLabel?.text = "Tilt backwards"
-        } else if motionData.gravity.z >= 0.1 {
+        } else if motionData.gravity.z >= 0.2 {
             tiltStatusLabel?.text = "Tilt forwards"
         } else {
             tiltStatusLabel?.text = nil
