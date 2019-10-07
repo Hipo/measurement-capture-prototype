@@ -289,14 +289,10 @@ extension CameraViewController {
                 
                 strongSelf.captureMode = .side
                 strongSelf.startDeviceMotionUpdates()
+                
+                UIApplication.shared.isIdleTimerDisabled = true
             case .side:
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
-                //strongSelf.draft.sideDepthPhoto = depthImage
-                
-//                strongSelf.captureMode = .arm
-//                strongSelf.startDeviceMotionUpdates()
-//            case .arm:
-//                strongSelf.draft.sideArmPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
                 //strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
@@ -306,6 +302,8 @@ extension CameraViewController {
                 
                 strongSelf.cameraController.stopSession()
                 strongSelf.motionManager.stopDeviceMotionUpdates()
+
+                UIApplication.shared.isIdleTimerDisabled = false
             }
         }
     }

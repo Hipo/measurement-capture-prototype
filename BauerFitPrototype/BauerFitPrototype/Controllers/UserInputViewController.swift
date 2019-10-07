@@ -81,7 +81,8 @@ class UserInputViewController: BaseScrollViewController {
         ageField.textColor = .black
         ageField.keyboardType = .numberPad
         ageField.autocorrectionType = .no
-        ageField.placeholder = "AGE"
+        ageField.attributedPlaceholder = NSAttributedString(string:"AGE",
+                                                            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
 
     private func configureWeightFieldAppearance() {
@@ -91,7 +92,8 @@ class UserInputViewController: BaseScrollViewController {
         weightField.textAlignment = .center
         weightField.keyboardType = .numberPad
         weightField.autocorrectionType = .no
-        weightField.placeholder = "WEIGHT (lbs)"
+        weightField.attributedPlaceholder = NSAttributedString(string:"WEIGHT (lbs)",
+                                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
 
     private func configureHeightFieldAppearance() {
@@ -101,7 +103,8 @@ class UserInputViewController: BaseScrollViewController {
         heightField.textAlignment = .center
         heightField.keyboardType = .numberPad
         heightField.autocorrectionType = .no
-        heightField.placeholder = "HEIGHT (cm)"
+        heightField.attributedPlaceholder = NSAttributedString(string:"HEIGHT (cm)",
+                                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
 
     private func configureMaleGenderButtonAppearance() {
