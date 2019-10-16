@@ -248,6 +248,8 @@ extension CameraViewController {
             ])
         
         errorLabel = statusLabel
+        
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -312,8 +314,6 @@ extension CameraViewController {
                 
                 strongSelf.captureMode = .side
                 strongSelf.startDeviceMotionUpdates()
-                
-                UIApplication.shared.isIdleTimerDisabled = true
             case .side:
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
 

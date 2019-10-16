@@ -37,6 +37,8 @@ class MeasurementResultCell: UICollectionViewCell {
 
     private func prepareTitleLabelLayout() {
         addSubview(titleLabel)
+        
+        titleLabel.textColor = .black
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -46,6 +48,8 @@ class MeasurementResultCell: UICollectionViewCell {
 
     private func prepareSubtitleLabelLayout() {
         addSubview(subtitleLabel)
+        
+        subtitleLabel.textColor = .black
 
         subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).inset(defaultVerticalInset)
