@@ -31,11 +31,11 @@ class CameraViewController: UIViewController {
     }
     
     let predictionZones = [
-        PredictionZone(predictionRect: CGRect(x: 0.4, y: 0.04, width: 0.2, height: 0.1), pointType: .top),
-        PredictionZone(predictionRect: CGRect(x: 0.05, y: 0.44, width: 0.2, height: 0.1), pointType: .leftWrist),
-        PredictionZone(predictionRect: CGRect(x: 0.76, y: 0.44, width: 0.2, height: 0.1), pointType: .rightWrist),
-        PredictionZone(predictionRect: CGRect(x: 0.21, y: 0.83, width: 0.2, height: 0.1), pointType: .leftAnkle),
-        PredictionZone(predictionRect: CGRect(x: 0.60, y: 0.83, width: 0.2, height: 0.1), pointType: .rightAnkle),
+        PredictionZone(predictionRect: CGRect(x: 0.45, y: 0.04, width: 0.1, height: 0.1), pointType: .top),
+        PredictionZone(predictionRect: CGRect(x: 0.28, y: 0.44, width: 0.1, height: 0.1), pointType: .leftWrist),
+        PredictionZone(predictionRect: CGRect(x: 0.62, y: 0.44, width: 0.1, height: 0.1), pointType: .rightWrist),
+        PredictionZone(predictionRect: CGRect(x: 0.36, y: 0.83, width: 0.1, height: 0.1), pointType: .leftAnkle),
+        PredictionZone(predictionRect: CGRect(x: 0.54, y: 0.83, width: 0.1, height: 0.1), pointType: .rightAnkle),
     ]
     
     typealias EstimationModel = model_cpm
@@ -69,6 +69,7 @@ class CameraViewController: UIViewController {
     var cameraCaptureButton: UIButton?
     var silhouetteView: UIImageView?
     var errorLabel: UILabel?
+    var pointsView: PredictionPointsView?
 
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -87,7 +88,7 @@ class CameraViewController: UIViewController {
         
         let request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
         
-        request.imageCropAndScaleOption = .scaleFill
+        request.imageCropAndScaleOption = .scaleFit
 
         self.request = request
         
@@ -173,13 +174,30 @@ extension CameraViewController {
         
         self.silhouetteView = silhouetteView
         
+        let pointsView = PredictionPointsView(frame: .zero)
+        
+        pointsView.translatesAutoresizingMaskIntoConstraints = false
+        pointsView.isUserInteractionEnabled = false
+        pointsView.isHidden = !faceDetected
+        
+        view.addSubview(pointsView)
+        
+        NSLayoutConstraint.activate([
+            pointsView.topAnchor.constraint(equalTo: view.topAnchor),
+            pointsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            pointsView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+        
+        self.pointsView = pointsView
+        
         let width = view.frame.size.width
         let height = view.frame.size.height
+        let zoneXOffset = (height - width) / 2
         
         for zone in predictionZones {
-            zone.errorView.frame = CGRect(x: zone.predictionRect.origin.x * width,
+            zone.errorView.frame = CGRect(x: zone.predictionRect.origin.x * height - zoneXOffset,
                                           y: zone.predictionRect.origin.y * height,
-                                          width: zone.predictionRect.size.width * width,
+                                          width: zone.predictionRect.size.width * height,
                                           height: zone.predictionRect.size.height * height)
             
             
@@ -232,6 +250,21 @@ extension CameraViewController {
         errorLabel = statusLabel
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let width = view.frame.size.width
+        let height = view.frame.size.height
+        let zoneXOffset = (height - width) / 2
+        
+        for zone in predictionZones {
+            zone.errorView.frame = CGRect(x: zone.predictionRect.origin.x * height - zoneXOffset,
+                                          y: zone.predictionRect.origin.y * height,
+                                          width: zone.predictionRect.size.width * height,
+                                          height: zone.predictionRect.size.height * height)
+        }
+    }
+    
     func updateForCaptureMode() {
         guard let silhouetteView = self.silhouetteView else {
             return
@@ -256,15 +289,6 @@ extension CameraViewController {
             case .none:
                 break
             }
-//        case .arm:
-//            switch draft.gender {
-//            case .female?:
-//                silhouetteView.image = UIImage(named: "woman-side-arm")?.withRenderingMode(.alwaysTemplate)
-//            case .male?:
-//                silhouetteView.image = UIImage(named: "man-side-arm")?.withRenderingMode(.alwaysTemplate)
-//            case .none:
-//                break
-//            }
         }
     }
     
@@ -285,7 +309,6 @@ extension CameraViewController {
             switch strongSelf.captureMode {
             case .front:
                 strongSelf.draft.frontPhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
-                //strongSelf.draft.frontDepthPhoto = depthImage
                 
                 strongSelf.captureMode = .side
                 strongSelf.startDeviceMotionUpdates()
@@ -293,7 +316,6 @@ extension CameraViewController {
                 UIApplication.shared.isIdleTimerDisabled = true
             case .side:
                 strongSelf.draft.sidePhoto = image.resizeAndCrop(toTargetSize: targetImageSize)
-                //strongSelf.draft.sideDepthPhoto = depthImage
 
                 // Move to share screen
                 let shareViewController = ShareViewController(draft: strongSelf.draft)
@@ -325,8 +347,8 @@ extension CameraViewController {
             phonePositionError = ""
         }
         
-        phoneInCorrectPosition = (-motionData.gravity.y > 0.9 && -motionData.gravity.y < 1.1)
-                                    && (motionData.gravity.z > -0.1 && motionData.gravity.z < 0.1)
+        phoneInCorrectPosition = (-motionData.gravity.y > 0.8 && -motionData.gravity.y < 1.2)
+                                    && (motionData.gravity.z > -0.2 && motionData.gravity.z < 0.2)
     }
     
     func evaluateCameraCaptureState() {
@@ -339,6 +361,7 @@ extension CameraViewController {
             
             if !self.faceDetected && self.captureMode == .front {
                 self.silhouetteView?.isHidden = true
+                self.pointsView?.isHidden = true
                 
                 for zone in self.predictionZones {
                     zone.errorView.isHidden = true
@@ -351,6 +374,7 @@ extension CameraViewController {
                 return
             } else if !self.phoneInCorrectPosition {
                 self.silhouetteView?.isHidden = false
+                self.pointsView?.isHidden = false
                 self.errorLabel?.text = self.phonePositionError
                 
                 for zone in self.predictionZones {
@@ -362,6 +386,7 @@ extension CameraViewController {
                 return
             } else if !self.allZonesDetected && self.captureMode == .front {
                 self.silhouetteView?.isHidden = false
+                self.pointsView?.isHidden = false
                 self.errorLabel?.text = "Position head, wrists, ankles in zones"
                 
                 for zone in self.predictionZones {
@@ -468,9 +493,10 @@ extension CameraViewController {
                 finalPoints.append(point)
             }
             
-            //pointsView?.bodyPoints = finalPoints
+            #if DEBUG
+            pointsView?.bodyPoints = finalPoints
+            #endif
             
-            // TODO: Put together cascading set of rules based on point locations and confidence
             /*
              Things to look for:
              
@@ -487,12 +513,14 @@ extension CameraViewController {
                 let rightWrist = rightWristPrediction,
                 let leftAnkle = leftAnklePrediction,
                 let rightAnkle = rightAnklePrediction else {
-                    return // TODO: Show error (missing points)
+                    allZonesDetected = false
+                    return
             }
             
             for point in finalPoints {
                 if point.maxConfidence < 0.8 {
-                    return // TODO: Show error (position better)
+                    allZonesDetected = false
+                    return
                 }
             }
             

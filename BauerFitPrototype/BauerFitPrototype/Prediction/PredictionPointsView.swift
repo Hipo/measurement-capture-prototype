@@ -75,7 +75,7 @@ class PredictionPointsView: UIView {
         }
         
         for (index, kp) in n_kpoints.enumerated() {
-            let x = kp.maxPoint.x * imageFrame.width
+            let x = (kp.maxPoint.x * imageFrame.height) - ((imageFrame.height - imageFrame.width) / 2)
             let y = kp.maxPoint.y * imageFrame.height
 
             keypointLabelBGViews[index].center = CGPoint(x: x, y: y)
